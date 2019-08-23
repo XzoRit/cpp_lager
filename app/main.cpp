@@ -30,5 +30,5 @@ int main(int ac, char* av[])
     std::cerr << "Exception of unknown type!\n";
   }
 
-  return xzr::lib::add(0, 0);
+  return 0;
 }
