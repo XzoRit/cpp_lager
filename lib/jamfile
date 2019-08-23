@@ -1,0 +1,39 @@
+project lib
+    : usage-requirements <include>..
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
+constant test_sources
+    : [ glob *.test.cpp ]
+    ;
+
+constant sources
+    : [ glob *.cpp : $(test_sources) ]
+    ;
+
+lib lib
+    : $(sources)
+    : <include>..
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
+import testing
+    ;
+
+run $(test_sources)
+    : --color_output=false
+    :
+    : <library>lib
+      <library>/boost//unit_test_framework
+    : test
+    ;
