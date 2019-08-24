@@ -19,6 +19,7 @@ constant sources
 lib lib
     : $(sources)
     : <include>..
+      <library>/external//lager
     ;
 
 import boost

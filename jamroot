@@ -12,6 +12,9 @@ use-project /lib
     : lib
     ;
 
+build-project external
+    ;
+
 use-project /external
     : external
     ;

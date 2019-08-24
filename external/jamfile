@@ -1,0 +1,7 @@
+alias lager
+    :
+    :
+    :
+    : <include>./lager
+      <cxxflags>-std=c++17
+    ;
