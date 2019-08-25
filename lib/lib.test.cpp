@@ -3,8 +3,9 @@
 
 namespace
 {
-using xzr::lib::increment_action;
 using xzr::lib::decrement_action;
+using xzr::lib::increment_action;
+using xzr::lib::reset_action;
 using xzr::lib::model;
 using xzr::lib::update;
 
@@ -20,8 +21,8 @@ BOOST_AUTO_TEST_CASE(lib_update)
   const auto c_model{ update(b_model, decrement_action{}) };
   BOOST_TEST(c_model.value == b_model.value - 1);
 
-  const auto d_model{ update(c_model, increment_action{}) };
-  BOOST_TEST(d_model.value == c_model.value + 1);
+  const auto d_model{ update(c_model, reset_action{ 5 }) };
+  BOOST_TEST(d_model.value == 5);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
