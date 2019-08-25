@@ -33,11 +33,11 @@ inline const auto update = [](model m, const action& act) {
                      ++m.value;
                      return m;
                    },
-                    [&](const decrement_action&) {
+                    [&m](const decrement_action&) {
                       --m.value;
                       return m;
                     },
-                    [&](const reset_action& act) {
+                    [&m](const reset_action& act) {
                       m.value = act.new_value;
                       return m;
                     } },

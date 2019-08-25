@@ -9,6 +9,7 @@ constant sources
 exe exe
     : $(sources)
     : <library>/boost//program_options
+      <cxxflags>-std=c++17
     ;
 
 import testing
