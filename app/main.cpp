@@ -1,4 +1,6 @@
 #include <boost/program_options.hpp>
+#include <lager/event_loop/manual.hpp>
+#include <lager/store.hpp>
 #include <lib/lib.hpp>
 #include <iostream>
 #include <iterator>
@@ -44,15 +46,19 @@ int main(int ac, char* av[])
     std::cerr << "Exception of unknown type!\n";
   }
 
-  char c{};
-  xzr::lib::model m{};
+  auto store = lager::make_store<xzr::lib::action>(
+      xzr::lib::model{},
+      xzr::lib::update,
+      render,
+      lager::with_manual_event_loop{});
+
+  auto c = char{};
   while(std::cin >> c)
   {
       if (c == 'q') break;
       if (const auto act = intent(c))
       {
-          m = xzr::lib::update(m, *act);
-          render(m);
+          store.dispatch(*act);
       }
   }
 
