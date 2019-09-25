@@ -35,6 +35,6 @@ run $(test_sources)
     : --color_output=false
     :
     : <library>lib
-      <library>/boost//unit_test_framework
+      <use>/boost//headers
     : test
     ;
