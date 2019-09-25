@@ -17,6 +17,7 @@ import testing
 
 unit-test run
     : exe
+    : <testing.arg>"--help"
     ;
 
 always run
