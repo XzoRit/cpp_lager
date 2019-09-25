@@ -12,7 +12,18 @@ use-project /lib
     : lib
     ;
 
-build-project tennis/tennis/model
+build-project tennis/tennis/model/tennis/model
+    ;
+
+use-project /tennis/model
+    : tennis/tennis/model/tennis/model
+    ;
+
+build-project tennis/tennis/view/tennis/view
+    ;
+
+use-project /tennis/view
+    : tennis/tennis/view/tennis/view
     ;
 
 build-project external
