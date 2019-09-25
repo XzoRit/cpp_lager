@@ -1,0 +1,33 @@
+project model
+    : usage-requirements <include>../..
+    ;
+
+constant test_sources
+    : [ glob *.test.cpp ]
+    ;
+
+constant sources
+    : [ glob *.cpp : $(test_sources) ]
+    ;
+
+lib model
+    : $(sources)
+    : <include>../..
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
+import testing
+    ;
+
+run $(test_sources)
+    : --color_output=true --log_level=success
+    :
+    : <library>model
+      <use>/boost//headers
+    : test
+    ;
