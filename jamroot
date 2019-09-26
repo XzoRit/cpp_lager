@@ -12,6 +12,9 @@ use-project /lib
     : lib
     ;
 
+build-project tennis/tennis/app
+    ;
+
 build-project tennis/tennis/model/tennis/model
     ;
 

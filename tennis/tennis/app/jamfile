@@ -1,13 +1,14 @@
-project app
-    : requirements <library>/lib//lib
+project tennis_console_app
     ;
 
 constant sources
     : [ glob *.cpp ]
     ;
 
-exe exe
+exe tennis_console_app_exe
     : $(sources)
+      /tennis/model//model
+      /tennis/view//console_view
     : <library>/boost//program_options
       <cxxflags>-std=c++17
     ;
@@ -15,7 +16,7 @@ exe exe
 import testing
     ;
 
-unit-test run
-    : exe
+unit-test tennis_console_app_run
+    : tennis_console_app_exe
     : <testing.arg>"--help"
     ;
