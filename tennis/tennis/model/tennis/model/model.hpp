@@ -38,14 +38,12 @@ struct player
   point points { point::Love };
 };
 template <class player_id_a, class player_id_b>
-inline bool
-operator==(const player<player_id_a>& a, const player<player_id_b>& b)
+inline bool operator==(const player<player_id_a>& a, const player<player_id_b>& b)
 {
   return a.points == b.points;
 }
 template <class player_id_a, class player_id_b>
-inline bool
-operator!=(const player<player_id_a>& a, const player<player_id_b>& b)
+inline bool operator!=(const player<player_id_a>& a, const player<player_id_b>& b)
 {
   return !(a == b);
 }
@@ -142,10 +140,7 @@ inline bool operator==(const game& a, const game& b)
 {
   return a.state == b.state;
 }
-inline bool operator!=(const game& a, const game& b)
-{
-  return !(a == b);
-}
+inline bool operator!=(const game& a, const game& b) { return !(a == b); }
 }
 namespace xzr::tennis::model::impl
 {
@@ -157,33 +152,27 @@ bool scorer_gets_forty_points(const game::simple& g, action::player_2_scored)
 {
   return g.player_2.points == point::Thirty;
 }
-game::forty
-create_forty_game(const game::simple& g, action::player_1_scored)
+game::forty create_forty_game(const game::simple& g, action::player_1_scored)
 {
   return { game::player_id_1 {}, g.player_2.points };
 }
-game::forty
-create_forty_game(const game::simple& g, action::player_2_scored)
+game::forty create_forty_game(const game::simple& g, action::player_2_scored)
 {
   return { game::player_id_2 {}, g.player_1.points };
 }
-game::winner
-create_winner_game(const game::forty& g, action::player_1_scored)
+game::winner create_winner_game(const game::forty& g, action::player_1_scored)
 {
   return { game::player_id_1 {} };
 }
-game::winner
-create_winner_game(const game::forty& g, action::player_2_scored)
+game::winner create_winner_game(const game::forty& g, action::player_2_scored)
 {
   return { game::player_id_2 {} };
 }
-game::advantage
-create_advantage_game(const game::deuce& g, action::player_1_scored)
+game::advantage create_advantage_game(const game::deuce& g, action::player_1_scored)
 {
   return game::advantage { game::player_id_1 {} };
 }
-game::advantage
-create_advantage_game(const game::deuce& g, action::player_2_scored)
+game::advantage create_advantage_game(const game::deuce& g, action::player_2_scored)
 {
   return game::advantage { game::player_id_2 {} };
 }
@@ -252,8 +241,7 @@ struct update_game_state
   }
   game operator()(const game::advantage& g) const
   {
-    return game { std::visit(
-      create_deuce_or_winner_game<scoring_player> {}, g.leading) };
+    return game { std::visit(create_deuce_or_winner_game<scoring_player> {}, g.leading) };
   }
   game operator()(const game::winner& g) const { return game { g }; }
 };

@@ -85,33 +85,25 @@ BOOST_AUTO_TEST_CASE(player_1_scores_and_wins)
 {
   const game _1 { game::simple {} };
   const game _2 { update(_1, player_1_scored {}) };
-  BOOST_TEST(
-    _2 == (game { game::simple { { point::Fifteen }, { point::Love } } }));
+  BOOST_TEST(_2 == (game { game::simple { { point::Fifteen }, { point::Love } } }));
   const game _3 { update(_2, player_1_scored {}) };
-  BOOST_TEST(
-    _3 == (game { game::simple { { point::Thirty }, { point::Love } } }));
+  BOOST_TEST(_3 == (game { game::simple { { point::Thirty }, { point::Love } } }));
   const game _4 { update(_3, player_1_scored {}) };
-  BOOST_TEST(
-    _4 == (game { game::forty { { game::player_id_1 {} }, point::Love } }));
+  BOOST_TEST(_4 == (game { game::forty { { game::player_id_1 {} }, point::Love } }));
   const game _5 { update(_4, player_1_scored {}) };
-  BOOST_TEST(
-    _5 == (game { game::winner { game::player_id_1 {} } }));
+  BOOST_TEST(_5 == (game { game::winner { game::player_id_1 {} } }));
 }
 BOOST_AUTO_TEST_CASE(player_2_scores_and_wins)
 {
   const game _1 { game::simple {} };
   const game _2 { update(_1, player_2_scored {}) };
-  BOOST_TEST(
-    _2 == (game { game::simple { { point::Love }, { point::Fifteen } } }));
+  BOOST_TEST(_2 == (game { game::simple { { point::Love }, { point::Fifteen } } }));
   const game _3 { update(_2, player_2_scored {}) };
-  BOOST_TEST(
-    _3 == (game { game::simple { { point::Love }, { point::Thirty } } }));
+  BOOST_TEST(_3 == (game { game::simple { { point::Love }, { point::Thirty } } }));
   const game _4 { update(_3, player_2_scored {}) };
-  BOOST_TEST(
-    _4 == (game { game::forty { { game::player_id_2 {} }, point::Love } }));
+  BOOST_TEST(_4 == (game { game::forty { { game::player_id_2 {} }, point::Love } }));
   const game _5 { update(_4, player_2_scored {}) };
-  BOOST_TEST(
-    _5 == (game { game::winner { game::player_id_2 {} } }));
+  BOOST_TEST(_5 == (game { game::winner { game::player_id_2 {} } }));
 }
 BOOST_AUTO_TEST_CASE(deuce_advantage_deuce)
 {
@@ -120,18 +112,15 @@ BOOST_AUTO_TEST_CASE(deuce_advantage_deuce)
 
   BOOST_TEST_INFO("deuce");
   const game deuce { update(g, player_2_scored {}) };
-  BOOST_TEST(
-    deuce == (game { game::deuce {} }));
+  BOOST_TEST(deuce == (game { game::deuce {} }));
 
   BOOST_TEST_INFO("advantage player_1");
   const game advantage_player_1 { update(deuce, player_1_scored {}) };
-  BOOST_TEST(
-    advantage_player_1 == (game { game::advantage { game::player_id_1 {} } }));
+  BOOST_TEST(advantage_player_1 == (game { game::advantage { game::player_id_1 {} } }));
 
   BOOST_TEST_INFO("deuce");
   const game deuce_2 { update(advantage_player_1, player_2_scored {}) };
-  BOOST_TEST(
-    deuce_2 == (game { game::deuce {} }));
+  BOOST_TEST(deuce_2 == (game { game::deuce {} }));
 }
 BOOST_AUTO_TEST_CASE(win_for_player_1)
 {
