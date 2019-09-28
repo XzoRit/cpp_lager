@@ -10,7 +10,7 @@ exe tennis_console_app_exe
       /tennis/model//model
       /tennis/view//console_view
     : <library>/boost//program_options
-      <cxxflags>-std=c++17
+      <library>/external//lager
     ;
 
 import testing

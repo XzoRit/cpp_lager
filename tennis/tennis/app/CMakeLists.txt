@@ -22,6 +22,7 @@ target_link_libraries(
     tennis::model
     tennis::console_view
     Boost::program_options
+    lager
 )
 
 add_test(
