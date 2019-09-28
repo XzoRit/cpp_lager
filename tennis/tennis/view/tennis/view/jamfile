@@ -27,7 +27,7 @@ import testing
     ;
 
 run $(test_sources)
-    : --color_output=true --log_level=success
+    : --color_output=false
     :
     : <library>console_view
       <use>/boost//headers

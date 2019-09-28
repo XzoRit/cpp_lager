@@ -202,13 +202,13 @@ struct create_deuce_or_winner_game<action::player_2_scored>
     return game::winner { p };
   }
 };
-bool is_deuce(const game::forty& g, action::player_1_scored)
-{
-  return std::get_if<game::player_id_2>(&g.leading_player);
-}
-bool is_deuce(const game::forty& g, action::player_2_scored)
+bool has_leading_player_scored(const game::forty& g, action::player_1_scored)
 {
   return std::get_if<game::player_id_1>(&g.leading_player);
+}
+bool has_leading_player_scored(const game::forty& g, action::player_2_scored)
+{
+  return std::get_if<game::player_id_2>(&g.leading_player);
 }
 game::simple inc_score_of(const game::simple& g, action::player_1_scored)
 {
@@ -230,10 +230,11 @@ struct update_game_state
   }
   game operator()(const game::forty& g) const
   {
-    if (is_deuce(g, scoring_player {}))
-      return game { game::deuce {} };
-    else
-      return game { create_winner_game(g, scoring_player {}) };
+    if (has_leading_player_scored(g, scoring_player{}))
+      return game{ create_winner_game(g, scoring_player{}) };
+    if (g.points_other_player < point::Thirty)
+      return game{ game::forty{ g.leading_player, ++g.points_other_player } };
+    return game{ game::deuce{} };
   }
   game operator()(const game::deuce& g) const
   {

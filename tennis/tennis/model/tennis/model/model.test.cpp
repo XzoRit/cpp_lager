@@ -105,6 +105,16 @@ BOOST_AUTO_TEST_CASE(player_2_scores_and_wins)
   const game _5 { update(_4, player_2_scored {}) };
   BOOST_TEST(_5 == (game { game::winner { game::player_id_2 {} } }));
 }
+BOOST_AUTO_TEST_CASE(forty_deuce)
+{
+  game forty_love{ game::forty{ game::player_id_1{}, point::Love } };
+  const game forty_fifteen{ update(forty_love, player_2_scored{}) };
+  BOOST_TEST(forty_fifteen == (game{ game::forty{ game::player_id_1{}, point::Fifteen } }));
+  const game forty_thirty{ update(forty_fifteen, player_2_scored{}) };
+  BOOST_TEST(forty_thirty == (game{ game::forty{ game::player_id_1{}, point::Thirty } }));
+  const game deuce{ update(forty_thirty, player_2_scored{}) };
+  BOOST_TEST(deuce == (game{ game::deuce{} }));
+}
 BOOST_AUTO_TEST_CASE(deuce_advantage_deuce)
 {
   game g { game::simple { { point::Thirty }, { point::Thirty } } };
