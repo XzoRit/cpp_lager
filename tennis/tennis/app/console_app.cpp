@@ -45,7 +45,7 @@ int main(int ac, char* av[])
       xzr::tennis::model::game{},
       xzr::tennis::model::update,
       [&tennis_render](const auto& model) {
-        tennis_render.draw(model);
+          std::cout << tennis_render.draw(model);
       },
       lager::with_manual_event_loop{});
 
