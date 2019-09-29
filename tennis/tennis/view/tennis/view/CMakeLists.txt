@@ -21,6 +21,7 @@ target_link_libraries(
   console_view_obj
   PUBLIC
     tennis::model
+    Boost::program_options
 )
 
 target_compile_features(

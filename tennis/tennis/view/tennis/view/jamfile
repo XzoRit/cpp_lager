@@ -1,5 +1,4 @@
 project console_view
-    : usage-requirements <include>../..
     ;
 
 constant test_sources
@@ -10,17 +9,19 @@ constant sources
     : [ glob *.cpp : $(test_sources) ]
     ;
 
-lib console_view
-    : $(sources)
-      /tennis/model//model
-    : <include>../..
-    :
-    ;
-
 import boost
     ;
 
 boost.use-project
+    ;
+
+lib console_view
+    : $(sources)
+    :
+    :
+    : <include>../..
+      <library>/tennis/model//model
+      <library>/boost//program_options
     ;
 
 import testing

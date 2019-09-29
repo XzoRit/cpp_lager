@@ -1,5 +1,4 @@
 project model
-    : usage-requirements <include>../..
     ;
 
 constant test_sources
@@ -10,15 +9,17 @@ constant sources
     : [ glob *.cpp : $(test_sources) ]
     ;
 
-lib model
-    : $(sources)
-    : <include>../..
-    ;
-
 import boost
     ;
 
 boost.use-project
+    ;
+
+lib model
+    : $(sources)
+    :
+    :
+    : <include>../..
     ;
 
 import testing

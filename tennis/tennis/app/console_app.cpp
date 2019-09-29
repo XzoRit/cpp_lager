@@ -12,14 +12,6 @@
 
 namespace po = boost::program_options;
 
-inline const auto intent = [](auto e) -> std::optional<xzr::tennis::action::score_action> {
-  if (e == '1')
-    return xzr::tennis::action::player_1_scored{};
-  if (e == '2')
-    return xzr::tennis::action::player_2_scored{};
-  return std::nullopt;
-};
-
 int main(int ac, char* av[])
 {
   std::cout << "tennis console app\n";
@@ -27,8 +19,8 @@ int main(int ac, char* av[])
   try
   {
     po::options_description desc("tennis console app");
-    desc.add_options()("help", "produce help message")("1", "player 1 scored")(
-      "2", "player 2 scored")("q", "quits application");
+    desc.add_options()("help", "produce help message")("q", "quits application");
+    xzr::tennis::view::console::menu::add_options(desc);
 
     po::variables_map vm;
     po::store(po::parse_command_line(ac, av, desc), vm);
@@ -54,7 +46,7 @@ int main(int ac, char* av[])
     {
       if (c == 'q')
         break;
-      if (const auto act = intent(c))
+      if (const auto act = xzr::tennis::view::console::menu::intent(c))
       {
         store.dispatch(*act);
       }

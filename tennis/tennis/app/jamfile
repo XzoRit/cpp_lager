@@ -5,12 +5,18 @@ constant sources
     : [ glob *.cpp ]
     ;
 
+import boost
+    ;
+
+boost.use-project
+    ;
+
 exe tennis_console_app_exe
     : $(sources)
+      /boost//program_options
+      /external//lager
       /tennis/model//model
       /tennis/view//console_view
-    : <library>/boost//program_options
-      <library>/external//lager
     ;
 
 import testing
