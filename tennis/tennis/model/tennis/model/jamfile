@@ -17,7 +17,7 @@ boost.use-project
 
 lib model
     : $(sources)
-    :
+    : <include>../..
     :
     : <include>../..
     ;

@@ -17,7 +17,9 @@ boost.use-project
 
 lib console_view
     : $(sources)
-    :
+      /tennis/model//model
+      /boost//program_options
+    : <include>../..
     :
     : <include>../..
       <library>/tennis/model//model
