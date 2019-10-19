@@ -1,12 +1,12 @@
-project console_view
+project view
     ;
 
-constant test_sources
-    : [ glob *.test.cpp ]
+constant console_view_test_sources
+    : console.test.cpp
     ;
 
-constant sources
-    : [ glob *.cpp : $(test_sources) ]
+constant console_view_sources
+    : console.cpp
     ;
 
 import boost
@@ -16,7 +16,7 @@ boost.use-project
     ;
 
 lib console_view
-    : $(sources)
+    : $(console_view_sources)
       /tennis/model//model
       /boost//program_options
     : <include>../..
@@ -29,10 +29,19 @@ lib console_view
 import testing
     ;
 
-run $(test_sources)
+run $(console_view_test_sources) main.test.cpp
     : --color_output=false
     :
     : <library>console_view
       <use>/boost//headers
-    : test
+    : console_view_test
+    ;
+
+lib imgui_view
+    : imgui.cpp
+    : <include>../..
+      <library>/external//imgui
+    :
+    : <include>../..
+      <library>/external//imgui
     ;

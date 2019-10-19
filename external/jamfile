@@ -5,3 +5,15 @@ alias lager
     : <include>./lager
       <cxxflags>-std=c++17
     ;
+
+constant imgui_sources
+    : [ glob ./imgui/*.cpp ]
+    ;
+
+lib imgui
+    : $(imgui_sources)
+    :
+    :
+    : <include>./imgui
+      <cxxflags>-std=c++17
+    ;

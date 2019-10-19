@@ -1,3 +1,6 @@
 [submodule "external/lager"]
 	path = external/lager
 	url = https://github.com/arximboldi/lager
+[submodule "imgui"]
+	path = external/imgui
+	url = ./external/imgui/
