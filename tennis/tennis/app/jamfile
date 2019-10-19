@@ -23,23 +23,9 @@ unit-test tennis_console_app_run
     : <testing.arg>"--help"
     ;
 
-lib sdl2
-    :
-    : <name>SDL2 <search>/usr/lib/x86_64-linux-gnu
-    ;
-
-lib gl
-    :
-    : <name>GL <search>/usr/lib
-    ;
-
 exe tennis_imgui_app_exe
     : imgui_app.cpp
-      imgui_impl_opengl2.cpp
-      imgui_impl_sdl.cpp
       /tennis/view//imgui_view
-      sdl2
-      gl
     ;
 
 unit-test tennis_imgui_app_run

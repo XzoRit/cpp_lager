@@ -6,12 +6,26 @@ alias lager
       <cxxflags>-std=c++17
     ;
 
+lib sdl2
+    :
+    : <name>SDL2
+      <search>/usr/lib/x86_64-linux-gnu
+    ;
+
+lib gl
+    :
+    : <name>GL
+      <search>/usr/lib
+    ;
+
 constant imgui_sources
     : [ glob ./imgui/*.cpp ]
     ;
 
 lib imgui
     : $(imgui_sources)
+      sdl2
+      gl
     :
     :
     : <include>./imgui
