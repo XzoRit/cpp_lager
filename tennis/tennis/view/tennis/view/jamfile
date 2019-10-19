@@ -43,5 +43,4 @@ lib imgui_view
       <library>/external//imgui
     :
     : <include>../..
-      <library>/external//imgui
     ;

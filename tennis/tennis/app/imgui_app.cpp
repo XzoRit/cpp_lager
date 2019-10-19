@@ -2,7 +2,7 @@
 
 int main()
 {
-    run();
+    xzr::tennis::view::imgui::run();
 
     return 0;
 }
