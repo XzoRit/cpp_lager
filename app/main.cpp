@@ -2,6 +2,7 @@
 #include <lager/event_loop/manual.hpp>
 #include <lager/event_loop/queue.hpp>
 #include <lager/store.hpp>
+#include <lager/watch.hpp>
 #include <lib/lib.hpp>
 #include <iostream>
 #include <iterator>
@@ -17,9 +18,10 @@ inline const auto intent = [](auto e) -> std::optional<xzr::lib::action>
     return std::nullopt;
 };
 
-inline const auto render = [](const auto& m)
+inline const auto render = [](const auto& prev, const auto& current)
 {
-    std::cout << "model.value = " << m.value << '\n';
+    std::cout << "previous value = " << prev.value << '\n';
+    std::cout << "current value = " << current.value << '\n';
 };
 
 int main(int ac, char* av[])
@@ -62,12 +64,12 @@ int main(int ac, char* av[])
   auto store = lager::make_store<xzr::lib::action>(
       xzr::lib::model{},
       xzr::lib::update,
-      render,
       lager::with_manual_event_loop{}
       // events will be queued and only executed
       // after q.step() has been called
       // lager::with_queue_event_loop{evt_q}
       );
+  lager::watch(store, render);
 
   auto c = char{};
   while(std::cin >> c)

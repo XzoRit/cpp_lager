@@ -1,9 +1,25 @@
+import boost
+    ;
+
+boost.use-project
+    ;
+
+alias zug
+    :
+    :
+    :
+    : <include>./zug
+      <cxxflags>-std=c++17
+    ;
+
 alias lager
     :
     :
     :
     : <include>./lager
       <cxxflags>-std=c++17
+      <library>zug
+      <use>/boost//headers
     ;
 
 lib sdl2
