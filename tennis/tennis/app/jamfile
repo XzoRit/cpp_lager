@@ -26,6 +26,9 @@ unit-test tennis_console_app_run
 exe tennis_imgui_app_exe
     : imgui_app.cpp
       /tennis/view//imgui_view
+      /external//imgui
+      /external//sdl2
+      /external//lager
     ;
 
 unit-test tennis_imgui_app_run
