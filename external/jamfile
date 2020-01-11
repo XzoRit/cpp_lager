@@ -4,6 +4,18 @@ import boost
 boost.use-project
     ;
 
+lib sdl2
+    :
+    : <name>SDL2
+      <search>/usr/lib/x86_64-linux-gnu
+    ;
+
+lib gl
+    :
+    : <name>GL
+      <search>/usr/lib
+    ;
+
 alias zug
     :
     :
@@ -20,18 +32,7 @@ alias lager
       <cxxflags>-std=c++17
       <library>zug
       <use>/boost//headers
-    ;
-
-lib sdl2
-    :
-    : <name>SDL2
-      <search>/usr/lib/x86_64-linux-gnu
-    ;
-
-lib gl
-    :
-    : <name>GL
-      <search>/usr/lib
+      <library>sdl2
     ;
 
 constant imgui_sources
@@ -40,10 +41,10 @@ constant imgui_sources
 
 lib imgui
     : $(imgui_sources)
-      sdl2
-      gl
     :
     :
     : <include>./imgui
       <cxxflags>-std=c++17
+      <library>sdl2
+      <library>gl
     ;
