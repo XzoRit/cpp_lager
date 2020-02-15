@@ -1,0 +1,48 @@
+import boost
+    ;
+
+boost.use-project
+    ;
+
+constant inc_dir
+    : .
+    ;
+
+constant src_dir
+    : $(inc_dir)/counter/model
+    ;
+
+project counter_model
+    : usage-requirements <include>$(inc_dir)
+    ;
+
+constant test_sources
+    : [ glob $(src_dir)/*.test.cpp ]
+    ;
+
+constant sources
+    : [ glob $(src_dir)/*.cpp : $(test_sources) ]
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
+lib counter_model
+    : $(sources)
+    : <include>$(inc_dir)
+      <library>/external//lager
+    ;
+
+import testing
+    ;
+
+run $(test_sources)
+    : --color_output=false
+    :
+    : <library>counter_model
+      <library>/boost//unit_test_framework
+    : test
+    ;

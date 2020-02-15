@@ -2,31 +2,31 @@ project app_project
     : build-dir build_boost
     ;
 
-build-project app
+build-project counter/counter/app
     ;
 
-build-project lib
+build-project counter/counter/model
     ;
 
-use-project /lib
-    : lib
+use-project /counter/model
+    : counter/counter/model
     ;
 
 build-project tennis/tennis/app
     ;
 
-build-project tennis/tennis/model/tennis/model
+build-project tennis/tennis/model
     ;
 
 use-project /tennis/model
-    : tennis/tennis/model/tennis/model
+    : tennis/tennis/model
     ;
 
-build-project tennis/tennis/view/tennis/view
+build-project tennis/tennis/view
     ;
 
 use-project /tennis/view
-    : tennis/tennis/view/tennis/view
+    : tennis/tennis/view
     ;
 
 build-project external

@@ -14,7 +14,7 @@ exe tennis_console_app_exe
     : console_app.cpp
       /boost//program_options
       /external//lager
-      /tennis/model//model
+      /tennis/model//tennis_model
       /tennis/view//console_view
     ;
 

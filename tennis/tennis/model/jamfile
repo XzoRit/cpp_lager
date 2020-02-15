@@ -1,0 +1,41 @@
+constant inc_dir
+    : .
+    ;
+
+constant src_dir
+    : $(inc_dir)/tennis/model
+    ;
+
+project tennis_model
+    : usage-requirements <include>$(inc_dir)
+    ;
+
+constant test_sources
+    : [ glob $(src_dir)/*.test.cpp ]
+    ;
+
+constant sources
+    : [ glob $(src_dir)/*.cpp : $(test_sources) ]
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
+lib tennis_model
+    : $(sources)
+    : <include>$(inc_dir)
+    ;
+
+import testing
+    ;
+
+run $(test_sources)
+    : --color_output=false
+    :
+    : <library>tennis_model
+      <use>/boost//headers
+    : test
+    ;

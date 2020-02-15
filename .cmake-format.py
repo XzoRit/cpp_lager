@@ -5,7 +5,7 @@ line_width = 80
 tab_size = 2
 
 # If arglists are longer than this, break them always
-max_subargs_per_line = 3
+max_subargs_per_line = 0
 
 # If true, separate flow control names from their parentheses with a space
 separate_ctrl_name_with_space = False
@@ -27,10 +27,10 @@ enum_char = '.'
 line_ending = 'unix'
 
 # Format command names consistently as 'lower' or 'upper' case
-command_case = 'canonical'
+command_case = 'lower'
 
 # Format keywords consistently as 'lower' or 'upper' case
-keyword_case = 'unchanged'
+keyword_case = 'upper'
 
 # Specify structure for custom cmake functions
 additional_commands = {

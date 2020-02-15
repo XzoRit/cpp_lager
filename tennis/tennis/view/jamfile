@@ -1,12 +1,20 @@
+constant inc_dir
+    : .
+    ;
+
+constant src_dir
+    : $(inc_dir)/tennis/view
+    ;
+
 project view
     ;
 
 constant console_view_test_sources
-    : console.test.cpp
+    : $(src_dir)/console.test.cpp
     ;
 
 constant console_view_sources
-    : console.cpp
+    : $(src_dir)/console.cpp
     ;
 
 import boost
@@ -17,19 +25,20 @@ boost.use-project
 
 lib console_view
     : $(console_view_sources)
-      /tennis/model//model
+      /tennis/model//tennis_model
       /boost//program_options
-    : <include>../..
+    : <include>$(inc_dir)
     :
-    : <include>../..
-      <library>/tennis/model//model
+    : <include>$(inc_dir)
+      <library>/tennis/model//tennis_model
       <library>/boost//program_options
     ;
 
 import testing
     ;
 
-run $(console_view_test_sources) main.test.cpp
+run $(console_view_test_sources)
+    $(src_dir)/main.test.cpp
     : --color_output=false
     :
     : <library>console_view
@@ -38,9 +47,9 @@ run $(console_view_test_sources) main.test.cpp
     ;
 
 lib imgui_view
-    : imgui.cpp
-    : <include>../..
+    : $(src_dir)/imgui.cpp
+    : <include>$(inc_dir)
       <library>/external//imgui
     :
-    : <include>../..
+    : <include>$(inc_dir)
     ;
