@@ -96,3 +96,8 @@ target_link_libraries(
   PUBLIC
   imgui
 )
+
+add_library(
+  tennis::imgui_view
+  ALIAS imgui_view
+)
