@@ -5,7 +5,7 @@ add_executable(
 target_sources(
   counter_console_exe
   PRIVATE
-  "main.cpp"
+  "console_app.cpp"
 )
 
 target_compile_features(
@@ -29,4 +29,50 @@ add_test(
   COMMAND
     counter_console_exe
     "--help"
+)
+
+add_executable(
+  counter_imgui_app_exe
+)
+
+target_sources(
+  counter_imgui_app_exe
+  PRIVATE
+  "imgui_app.cpp"
+)
+
+target_compile_features(
+  counter_imgui_app_exe
+  PRIVATE
+  cxx_std_17
+)
+
+find_package(
+  OpenGL
+  REQUIRED
+)
+
+find_package(
+  SDL2
+  REQUIRED
+)
+
+include_directories(
+  ${SDL2_INCLUDE_DIRS}
+)
+
+target_link_libraries(
+  counter_imgui_app_exe
+  PRIVATE
+    imgui
+    lager
+    OpenGL::GL
+    ${SDL2_LIBRARIES}
+)
+
+add_test(
+  NAME
+    counter::imgui_exe
+  COMMAND
+    counter_imgui_app_exe
 )

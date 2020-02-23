@@ -1,15 +1,32 @@
+import testing
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
 exe counter_console_app_exe
-    : main.cpp
+    : console_app.cpp
     : <library>/boost//program_options
       <library>/counter/model//counter_model
       <library>/counter/view//console_view
       <cxxflags>-std=c++17
     ;
 
-import testing
-    ;
-
 unit-test counter_console_app_run
     : counter_console_app_exe
     : <testing.arg>"--help"
+    ;
+
+exe counter_imgui_app_exe
+    : imgui_app.cpp
+      /external//imgui
+      /external//lager
+      /site-config//sdl2
+    ;
+
+unit-test counter_imgui_app_run
+    : counter_imgui_app_exe
     ;
