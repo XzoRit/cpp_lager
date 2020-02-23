@@ -3,11 +3,7 @@ constant inc_dir
     ;
 
 constant src_dir
-    : $(inc_dir)/tennis/view
-    ;
-
-constant console_view_test_sources
-    : $(src_dir)/console.test.cpp
+    : $(inc_dir)/counter/view
     ;
 
 constant console_view_sources
@@ -22,25 +18,13 @@ boost.use-project
 
 lib console_view
     : $(console_view_sources)
-      /tennis/model//tennis_model
+      /counter/model//counter_model
       /boost//program_options
     : <include>$(inc_dir)
     :
     : <include>$(inc_dir)
-      <library>/tennis/model//tennis_model
+      <library>/counter/model//counter_model
       <library>/boost//program_options
-    ;
-
-import testing
-    ;
-
-run $(console_view_test_sources)
-    $(src_dir)/main.test.cpp
-    : --color_output=false
-    :
-    : <library>console_view
-      <use>/boost//headers
-    : console_view_test
     ;
 
 lib imgui_view

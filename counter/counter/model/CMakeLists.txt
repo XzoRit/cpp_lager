@@ -19,16 +19,16 @@ target_sources(
   "${src_dir}/model.hpp"
 )
 
+target_compile_features(
+  counter_model
+  PUBLIC
+  cxx_std_17
+)
+
 target_include_directories(
   counter_model
   PUBLIC
     ${inc_dir}
-)
-
-target_link_libraries(
-  counter_model
-  PUBLIC
-  lager
 )
 
 add_library(

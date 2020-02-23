@@ -1,7 +1,5 @@
 #pragma once
 
-#include <lager/util.hpp>
-
 #include <variant>
 
 namespace xzr::counter::action
@@ -24,19 +22,27 @@ struct model
 {
     int value{0};
 };
-inline const auto update = [](model m, const action::action &act) {
-    return std::visit(lager::visitor{[&m](const action::increment &) {
-                                         ++m.value;
-                                         return m;
-                                     },
-                                     [&m](const action::decrement &) {
-                                         --m.value;
-                                         return m;
-                                     },
-                                     [&m](const action::reset &act) {
-                                         m.value = act.new_value;
-                                         return m;
-                                     }},
-                      act);
+struct on_action
+{
+    model operator()(const action::increment &)
+    {
+        ++m.value;
+        return m;
+    }
+    model operator()(const action::decrement &)
+    {
+        --m.value;
+        return m;
+    }
+    model operator()(const action::reset &act)
+    {
+        m.value = act.new_value;
+        return m;
+    }
+    model m{};
+};
+model update(model m, const action::action &act)
+{
+    return std::visit(on_action{m}, act);
 };
 } // namespace xzr::counter::model

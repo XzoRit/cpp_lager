@@ -1,21 +1,15 @@
-project app
-    : requirements <library>/counter/model//counter_model
-    ;
-
-constant sources
-    : [ glob *.cpp ]
-    ;
-
-exe exe
-    : $(sources)
+exe counter_console_app_exe
+    : main.cpp
     : <library>/boost//program_options
+      <library>/counter/model//counter_model
+      <library>/counter/view//console_view
       <cxxflags>-std=c++17
     ;
 
 import testing
     ;
 
-unit-test run
-    : exe
+unit-test counter_console_app_run
+    : counter_console_app_exe
     : <testing.arg>"--help"
     ;

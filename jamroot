@@ -5,6 +5,10 @@ project app_project
 build-project counter/counter/app
     ;
 
+use-project /counter_app
+    : counter/counter/app
+    ;
+
 build-project counter/counter/model
     ;
 
@@ -12,7 +16,18 @@ use-project /counter/model
     : counter/counter/model
     ;
 
+build-project counter/counter/view
+    ;
+
+use-project /counter/view
+    : counter/counter/view
+    ;
+
 build-project tennis/tennis/app
+    ;
+
+use-project /tennis_app
+    : tennis/tennis/app
     ;
 
 build-project tennis/tennis/model

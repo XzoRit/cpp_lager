@@ -28,18 +28,19 @@ target_compile_features(
 target_include_directories(
   tennis_model
   PUBLIC
-  ${inc_dir}
+    ${inc_dir}
 )
 
 target_link_libraries(
   tennis_model
   PUBLIC
-  lager
+    lager
 )
 
 add_library(
   tennis::model
-  ALIAS tennis_model
+  ALIAS
+  tennis_model
 )
 
 add_executable(

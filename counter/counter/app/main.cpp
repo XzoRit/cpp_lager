@@ -1,4 +1,5 @@
 #include <counter/model/model.hpp>
+#include <counter/view/console.hpp>
 
 #include <lager/event_loop/manual.hpp>
 #include <lager/event_loop/queue.hpp>
@@ -13,30 +14,22 @@
 
 namespace po = boost::program_options;
 
-inline const auto intent = [](auto e) -> std::optional<xzr::counter::action::action> {
-    if (e == '+')
-        return xzr::counter::action::increment{};
-    if (e == '-')
-        return xzr::counter::action::decrement{};
-    if (e == '=')
-        return xzr::counter::action::reset{0};
-    return std::nullopt;
-};
-
-inline const auto render = [](const auto &prev, const auto &current) {
-    std::cout << "previous value = " << prev.value << '\n';
-    std::cout << "current value = " << current.value << '\n';
-};
-
+namespace
+{
+void render(const xzr::counter::model::model & /*prev*/, const xzr::counter::model::model &current)
+{
+    xzr::counter::view::console::render(current);
+}
+} // namespace
 int main(int ac, char *av[])
 {
-    std::cout << "lager app\n";
+    std::cout << "counter console app\n";
 
     try
     {
-        po::options_description desc("options for lager app");
-        desc.add_options()("help", "produce help message")("+", "increments counter by 1")(
-            "-", "decrements counter by 1")("=", "resets counter to 0")("q", "quits application");
+        po::options_description desc("options for counter console app");
+        desc.add_options()("help", "produce help message")("q", "quits application");
+        xzr::counter::view::console::menu::add_options(desc);
 
         po::variables_map vm;
         po::store(po::parse_command_line(ac, av, desc), vm);
@@ -48,6 +41,22 @@ int main(int ac, char *av[])
             return 0;
         }
         std::cout << desc << "\n";
+        auto evt_q = lager::queue_event_loop{};
+        auto store = lager::make_store<xzr::counter::action::action>(
+            xzr::counter::model::model{}, xzr::counter::model::update, lager::with_manual_event_loop{});
+        lager::watch(store, render);
+
+        auto c = char{};
+        while (std::cin >> c)
+        {
+            if (c == 'q')
+                break;
+            if (const auto act = xzr::counter::view::console::menu::intent(c))
+            {
+                store.dispatch(*act);
+            }
+            evt_q.step();
+        }
     }
     catch (std::exception &e)
     {
@@ -57,27 +66,7 @@ int main(int ac, char *av[])
     catch (...)
     {
         std::cerr << "Exception of unknown type!\n";
-    }
-
-    auto evt_q = lager::queue_event_loop{};
-    auto store = lager::make_store<xzr::counter::action::action>(
-        xzr::counter::model::model{}, xzr::counter::model::update, lager::with_manual_event_loop{}
-        // events will be queued and only executed
-        // after q.step() has been called
-        // lager::with_queue_event_loop{evt_q}
-    );
-    lager::watch(store, render);
-
-    auto c = char{};
-    while (std::cin >> c)
-    {
-        if (c == 'q')
-            break;
-        if (const auto act = intent(c))
-        {
-            store.dispatch(*act);
-        }
-        evt_q.step();
+        return 1;
     }
 
     return 0;

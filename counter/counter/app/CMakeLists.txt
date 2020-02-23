@@ -18,7 +18,9 @@ target_link_libraries(
   counter_console_exe
   PRIVATE
     counter::model
+    counter::console_view
     Boost::program_options
+    lager
 )
 
 add_test(
