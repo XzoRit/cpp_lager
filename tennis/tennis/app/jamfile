@@ -27,13 +27,10 @@ exe tennis_imgui_app_exe
     : imgui_app.cpp
       /tennis/view//imgui_view
       /external//imgui
-      /external//sdl2
       /external//lager
+      /site-config//sdl2
     ;
 
 unit-test tennis_imgui_app_run
     : tennis_imgui_app_exe
-    ;
-
-always tennis_imgui_app_run
     ;
