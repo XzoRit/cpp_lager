@@ -41,6 +41,16 @@ target_link_libraries(
     zug
 )
 
+find_package(
+  OpenGL
+  REQUIRED
+)
+
+find_package(
+  SDL2
+  REQUIRED
+)
+
 add_library(
   imgui
 )
@@ -56,14 +66,26 @@ target_sources(
   "${CMAKE_CURRENT_SOURCE_DIR}/imgui/imgui_widgets.cpp"
 )
 
+target_compile_features(
+  imgui
+  PRIVATE
+    cxx_std_17
+)
+include_directories(
+  ${SDL2_INCLUDE_DIRS}
+)
+
 target_include_directories(
   imgui
   PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}/imgui"
 )
 
-target_compile_features(
+target_link_libraries(
   imgui
   PRIVATE
-    cxx_std_17
+    OpenGL::GL
+    ${SDL2_LIBRARIES}
 )
+
+

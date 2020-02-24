@@ -9,7 +9,6 @@ alias zug
     :
     :
     : <include>./zug
-      <cxxflags>-std=c++17
     ;
 
 alias lager
@@ -17,7 +16,6 @@ alias lager
     :
     :
     : <include>./lager
-      <cxxflags>-std=c++17
       <library>zug
       <use>/boost//headers
       <library>/site-config//sdl2
@@ -29,10 +27,11 @@ constant imgui_sources
 
 lib imgui
     : $(imgui_sources)
+      /site-config//sdl2
+      /site-config//gl
     :
     :
     : <include>./imgui
-      <cxxflags>-std=c++17
       <library>/site-config//sdl2
       <library>/site-config//gl
     ;

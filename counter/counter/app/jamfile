@@ -12,7 +12,6 @@ exe counter_console_app_exe
     : <library>/boost//program_options
       <library>/counter/model//counter_model
       <library>/counter/view//console_view
-      <cxxflags>-std=c++17
     ;
 
 unit-test counter_console_app_run
