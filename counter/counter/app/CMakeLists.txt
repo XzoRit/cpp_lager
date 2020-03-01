@@ -64,6 +64,7 @@ include_directories(
 target_link_libraries(
   counter_imgui_app_exe
   PRIVATE
+    counter::model
     imgui
     lager
     OpenGL::GL

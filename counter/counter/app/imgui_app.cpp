@@ -1,3 +1,5 @@
+#include <counter/model/model.hpp>
+
 #include <lager/event_loop/sdl.hpp>
 #include <lager/store.hpp>
 
@@ -107,46 +109,34 @@ struct imgui_context
     SDL_Window *win{nullptr};
 };
 
-void draw(imgui_context &gui_context, int model)
+void draw(imgui_context &gui_context, xzr::counter::model::model m)
 {
     gui_context.new_frame();
 
     ImGui::Begin("Hello, world!");
-    ImGui::Text("model = %d", model);
+    ImGui::Text("model = %d", m.value);
     ImGui::End();
 
     gui_context.render();
 }
 
-std::optional<int> intent(const SDL_Event &event)
+std::optional<xzr::counter::action::action> intent(const SDL_Event &event)
 {
     if (event.type == SDL_KEYDOWN)
     {
         switch (event.key.keysym.sym)
         {
         case SDLK_UP:
-            return 1;
+            return xzr::counter::action::increment{};
         case SDLK_DOWN:
-            return 2;
+            return xzr::counter::action::decrement{};
         case SDLK_SPACE:
-            return 0;
+            return xzr::counter::action::reset{0};
         default:
-            break;
+            return std::nullopt;
         }
     }
     return std::nullopt;
-}
-
-int update(int model, int action)
-{
-    if (action == 0)
-        return 0;
-    if (action == 1)
-        return ++model;
-    if (action == 2)
-        return --model;
-
-    return model;
 }
 } // namespace
 int main()
@@ -157,19 +147,22 @@ int main()
     imgui_context gui_context{window.handle, gl_context.gl_context};
 
     auto loop = lager::sdl_event_loop{};
-    auto store = lager::make_store<int>(int{}, update, lager::with_sdl_event_loop{loop});
+    auto store = lager::make_store<xzr::counter::action::action>(
+        xzr::counter::model::model{},
+        xzr::counter::model::update,
+        lager::with_sdl_event_loop{loop});
 
-    lager::watch(store, [&](int prev_model, int curr_model) { draw(gui_context, curr_model); });
-
-    draw(gui_context, store.get());
+    lager::watch(
+        store,
+        [&](xzr::counter::model::model prev_model, xzr::counter::model::model curr_model) {
+            draw(gui_context, curr_model);
+        }
+    );
 
     loop.run([&](const SDL_Event &ev) {
         ImGui_ImplSDL2_ProcessEvent(&ev);
 
-        if (auto act = intent(ev))
-            store.dispatch(*act);
-
-        draw(gui_context, store.get());
+        if (auto act = intent(ev)) store.dispatch(*act);
 
         return (ev.type != SDL_QUIT);
     });
