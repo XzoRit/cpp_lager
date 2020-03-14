@@ -109,15 +109,11 @@ struct imgui_context
     SDL_Window *win{nullptr};
 };
 
-void draw(imgui_context &gui_context, xzr::counter::model::model m)
+void draw(xzr::counter::model::model m)
 {
-    gui_context.new_frame();
-
     ImGui::Begin("Hello, world!");
     ImGui::Text("model = %d", m.value);
     ImGui::End();
-
-    gui_context.render();
 }
 
 std::optional<xzr::counter::action::action> intent(const SDL_Event &event)
@@ -152,20 +148,23 @@ int main()
         xzr::counter::model::update,
         lager::with_sdl_event_loop{loop});
 
-    lager::watch(
-        store,
-        [&](xzr::counter::model::model prev_model, xzr::counter::model::model curr_model) {
-            draw(gui_context, curr_model);
-        }
-    );
-
     loop.run([&](const SDL_Event &ev) {
         ImGui_ImplSDL2_ProcessEvent(&ev);
 
+        gui_context.new_frame();
+
         if (auto act = intent(ev)) store.dispatch(*act);
+        draw(store.get());
+
+        // ImGui::ShowDemoWindow();
+
+        gui_context.render();
 
         return (ev.type != SDL_QUIT);
-    });
+        },
+        [](const auto&) {
+            return true;
+        });
 
     return 0;
 }

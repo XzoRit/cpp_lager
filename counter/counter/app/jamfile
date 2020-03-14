@@ -24,6 +24,7 @@ exe counter_imgui_app_exe
       /external//imgui
       /external//lager
       /site-config//sdl2
+    : <library>/counter/model//counter_model
     ;
 
 unit-test counter_imgui_app_run
