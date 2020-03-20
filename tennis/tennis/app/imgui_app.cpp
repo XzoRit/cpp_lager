@@ -51,12 +51,12 @@ struct sdl_window
         SDL_DestroyWindow(handle);
     }
 
-    SDL_Window *handle{nullptr};
+    SDL_Window* handle{nullptr};
 };
 
 struct sdl_gl_context
 {
-    explicit sdl_gl_context(SDL_Window *window) : gl_context{SDL_GL_CreateContext(window)}
+    explicit sdl_gl_context(SDL_Window* window) : gl_context{SDL_GL_CreateContext(window)}
     {
         SDL_GL_MakeCurrent(window, gl_context);
         SDL_GL_SetSwapInterval(1);
@@ -72,7 +72,7 @@ struct sdl_gl_context
 
 struct imgui_context
 {
-    imgui_context(SDL_Window *window, SDL_GLContext gl_context) : win{window}
+    imgui_context(SDL_Window* window, SDL_GLContext gl_context) : win{window}
     {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -94,7 +94,7 @@ struct imgui_context
     {
         ImGui::Render();
 
-        ImGuiIO &io = ImGui::GetIO();
+        ImGuiIO& io = ImGui::GetIO();
         glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
 
         const ImVec4 back_ground_color{0.5f, 0.5, 0.5, 0.5f};
@@ -106,10 +106,10 @@ struct imgui_context
         SDL_GL_SwapWindow(win);
     }
 
-    SDL_Window *win{nullptr};
+    SDL_Window* win{nullptr};
 };
 
-void draw(imgui_context &gui_context, int model)
+void draw(imgui_context& gui_context, int model)
 {
     gui_context.new_frame();
 
@@ -120,7 +120,7 @@ void draw(imgui_context &gui_context, int model)
     gui_context.render();
 }
 
-std::optional<int> intent(const SDL_Event &event)
+std::optional<int> intent(const SDL_Event& event)
 {
     if (event.type == SDL_KEYDOWN)
     {
@@ -165,7 +165,7 @@ int main()
 
     draw(gui_context, store.get());
 
-    loop.run([&](const SDL_Event &ev) {
+    loop.run([&](const SDL_Event& ev) {
         ImGui_ImplSDL2_ProcessEvent(&ev);
 
         if (auto act = intent(ev))

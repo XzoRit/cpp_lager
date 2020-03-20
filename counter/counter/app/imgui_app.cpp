@@ -51,12 +51,12 @@ struct sdl_window
         SDL_DestroyWindow(handle);
     }
 
-    SDL_Window *handle{nullptr};
+    SDL_Window* handle{nullptr};
 };
 
 struct sdl_gl_context
 {
-    explicit sdl_gl_context(SDL_Window *window) : gl_context{SDL_GL_CreateContext(window)}
+    explicit sdl_gl_context(SDL_Window* window) : gl_context{SDL_GL_CreateContext(window)}
     {
         SDL_GL_MakeCurrent(window, gl_context);
         SDL_GL_SetSwapInterval(1);
@@ -72,7 +72,7 @@ struct sdl_gl_context
 
 struct imgui_context
 {
-    imgui_context(SDL_Window *window, SDL_GLContext gl_context) : win{window}
+    imgui_context(SDL_Window* window, SDL_GLContext gl_context) : win{window}
     {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -94,7 +94,7 @@ struct imgui_context
     {
         ImGui::Render();
 
-        ImGuiIO &io = ImGui::GetIO();
+        ImGuiIO& io = ImGui::GetIO();
         glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
 
         const ImVec4 back_ground_color{0.5f, 0.5, 0.5, 0.5f};
@@ -106,7 +106,7 @@ struct imgui_context
         SDL_GL_SwapWindow(win);
     }
 
-    SDL_Window *win{nullptr};
+    SDL_Window* win{nullptr};
 };
 
 void draw(xzr::counter::model::model m)
@@ -116,7 +116,7 @@ void draw(xzr::counter::model::model m)
     ImGui::End();
 }
 
-std::optional<xzr::counter::action::action> intent(const SDL_Event &event)
+std::optional<xzr::counter::action::action> intent(const SDL_Event& event)
 {
     if (event.type == SDL_KEYDOWN)
     {
@@ -143,17 +143,18 @@ int main()
     imgui_context gui_context{window.handle, gl_context.gl_context};
 
     auto loop = lager::sdl_event_loop{};
-    auto store = lager::make_store<xzr::counter::action::action>(
-        xzr::counter::model::model{},
-        xzr::counter::model::update,
-        lager::with_sdl_event_loop{loop});
+    auto store = lager::make_store<xzr::counter::action::action>(xzr::counter::model::model{},
+                                                                 xzr::counter::model::update,
+                                                                 lager::with_sdl_event_loop{loop});
 
-    loop.run([&](const SDL_Event &ev) {
+    loop.run(
+        [&](const SDL_Event& ev) {
             ImGui_ImplSDL2_ProcessEvent(&ev);
 
             gui_context.new_frame();
 
-            if (auto act = intent(ev)) store.dispatch(*act);
+            if (auto act = intent(ev))
+                store.dispatch(*act);
             draw(store.get());
 
             ImGui::ShowDemoWindow();
@@ -162,12 +163,9 @@ int main()
 
             return (ev.type != SDL_QUIT);
         },
-        [](const auto&) {
-            return true;
-        },
+        [](const auto&) { return true; },
         60,
-        15
-    );
+        15);
 
     return 0;
 }

@@ -16,12 +16,12 @@ namespace po = boost::program_options;
 
 namespace
 {
-void render(const xzr::counter::model::model & /*prev*/, const xzr::counter::model::model &current)
+void render(const xzr::counter::model::model& /*prev*/, const xzr::counter::model::model& current)
 {
     xzr::counter::view::console::render(current);
 }
 } // namespace
-int main(int ac, char *av[])
+int main(int ac, char* av[])
 {
     std::cout << "counter console app\n";
 
@@ -42,8 +42,9 @@ int main(int ac, char *av[])
         }
         std::cout << desc << "\n";
         auto evt_q = lager::queue_event_loop{};
-        auto store = lager::make_store<xzr::counter::action::action>(
-            xzr::counter::model::model{}, xzr::counter::model::update, lager::with_manual_event_loop{});
+        auto store = lager::make_store<xzr::counter::action::action>(xzr::counter::model::model{},
+                                                                     xzr::counter::model::update,
+                                                                     lager::with_manual_event_loop{});
         lager::watch(store, render);
 
         auto c = char{};
@@ -58,7 +59,7 @@ int main(int ac, char *av[])
             evt_q.step();
         }
     }
-    catch (std::exception &e)
+    catch (std::exception& e)
     {
         std::cerr << "error: " << e.what() << "\n";
         return 1;

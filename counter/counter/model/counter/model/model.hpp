@@ -24,24 +24,24 @@ struct model
 };
 struct on_action
 {
-    model operator()(const action::increment &)
+    model operator()(const action::increment&)
     {
         ++m.value;
         return m;
     }
-    model operator()(const action::decrement &)
+    model operator()(const action::decrement&)
     {
         --m.value;
         return m;
     }
-    model operator()(const action::reset &act)
+    model operator()(const action::reset& act)
     {
         m.value = act.new_value;
         return m;
     }
     model m{};
 };
-model update(model m, const action::action &act)
+model update(model m, const action::action& act)
 {
     return std::visit(on_action{m}, act);
 };

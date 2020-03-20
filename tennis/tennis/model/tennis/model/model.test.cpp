@@ -3,7 +3,7 @@
 
 namespace xzr::tennis::model
 {
-std::ostream &operator<<(std::ostream &str, point p)
+std::ostream& operator<<(std::ostream& str, point p)
 {
     if (p == point::Love)
         str << "0";
@@ -15,58 +15,58 @@ std::ostream &operator<<(std::ostream &str, point p)
         str << "40";
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const player<game::player_id_1> &p)
+std::ostream& operator<<(std::ostream& str, const player<game::player_id_1>& p)
 {
     str << "player_1: " << p.points;
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const player<game::player_id_2> &p)
+std::ostream& operator<<(std::ostream& str, const player<game::player_id_2>& p)
 {
     str << "player_2: " << p.points;
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const game::player_id_1 &)
+std::ostream& operator<<(std::ostream& str, const game::player_id_1&)
 {
     str << "player_id_1";
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const game::player_id_2 &)
+std::ostream& operator<<(std::ostream& str, const game::player_id_2&)
 {
     str << "player_id_2";
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const game::simple &g)
+std::ostream& operator<<(std::ostream& str, const game::simple& g)
 {
     str << g.player_1 << " vs. " << g.player_2;
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const game::forty &g)
+std::ostream& operator<<(std::ostream& str, const game::forty& g)
 {
     str << "leading_player: ";
-    std::visit([&str](const auto &a) { str << a; }, g.leading_player);
+    std::visit([&str](const auto& a) { str << a; }, g.leading_player);
     str << " points_other_player: " << g.points_other_player;
     return str;
 }
-std::ostream &operator<<(std::ostream &str, game::deuce)
+std::ostream& operator<<(std::ostream& str, game::deuce)
 {
     str << "deuce";
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const game::advantage &g)
+std::ostream& operator<<(std::ostream& str, const game::advantage& g)
 {
     str << "advantage: ";
-    std::visit([&str](const auto &a) { str << a; }, g.leading);
+    std::visit([&str](const auto& a) { str << a; }, g.leading);
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const game::winner &g)
+std::ostream& operator<<(std::ostream& str, const game::winner& g)
 {
     str << "winner ";
-    std::visit([&str](const auto &a) { str << a; }, g.the_one_and_only);
+    std::visit([&str](const auto& a) { str << a; }, g.the_one_and_only);
     return str;
 }
-std::ostream &operator<<(std::ostream &str, const game &g)
+std::ostream& operator<<(std::ostream& str, const game& g)
 {
-    std::visit([&str](const auto &a) { str << a; }, g.state);
+    std::visit([&str](const auto& a) { str << a; }, g.state);
     return str;
 }
 } // namespace xzr::tennis::model

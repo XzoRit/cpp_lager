@@ -9,7 +9,7 @@
 
 namespace xzr::counter::view::console
 {
-inline void render(const xzr::counter::model::model &a)
+inline void render(const xzr::counter::model::model& a)
 {
     std::cout << '\r' << a.value;
 }
@@ -26,7 +26,7 @@ inline std::optional<xzr::counter::action::action> intent(char c)
         return xzr::counter::action::reset{0};
     return std::nullopt;
 }
-inline void add_options(boost::program_options::options_description &desc)
+inline void add_options(boost::program_options::options_description& desc)
 {
     desc.add_options()("+", "increments counter by 1")("-", "decrements counter by 1")("=", "resets counter to 0");
 }

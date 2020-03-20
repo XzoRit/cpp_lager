@@ -17,17 +17,17 @@ struct render
     std::string player_2{};
     struct player_to_string
     {
-        const render *the_render;
-        std::string operator()(const model::game::player_id_1 &) const
+        const render* the_render;
+        std::string operator()(const model::game::player_id_1&) const
         {
             return the_render->player_1;
         }
-        std::string operator()(const model::game::player_id_2 &) const
+        std::string operator()(const model::game::player_id_2&) const
         {
             return the_render->player_2;
         }
     };
-    std::ostream &draw(std::ostream &str, const model::point &p) const
+    std::ostream& draw(std::ostream& str, const model::point& p) const
     {
         if (p == model::point::Love)
             str << "0";
@@ -39,7 +39,7 @@ struct render
             str << "40";
         return str;
     }
-    std::ostream &draw(std::ostream &str, const model::game::simple &g) const
+    std::ostream& draw(std::ostream& str, const model::game::simple& g) const
     {
         str << player_1 << ": ";
         draw(str, g.player_1.points);
@@ -48,7 +48,7 @@ struct render
         str << '\n';
         return str;
     }
-    std::ostream &draw(std::ostream &str, const model::game::forty &g) const
+    std::ostream& draw(std::ostream& str, const model::game::forty& g) const
     {
         if (std::get_if<model::game::player_id_1>(&g.leading_player))
         {
@@ -67,25 +67,25 @@ struct render
         str << '\n';
         return str;
     }
-    std::ostream &draw(std::ostream &str, model::game::deuce) const
+    std::ostream& draw(std::ostream& str, model::game::deuce) const
     {
         str << "deuce\n";
         return str;
     }
-    std::ostream &draw(std::ostream &str, const model::game::advantage &g) const
+    std::ostream& draw(std::ostream& str, const model::game::advantage& g) const
     {
         str << "advantage " << visit(player_to_string{this}, g.leading) << "\n";
         return str;
     }
-    std::ostream &draw(std::ostream &str, const model::game::winner &g) const
+    std::ostream& draw(std::ostream& str, const model::game::winner& g) const
     {
         str << visit(player_to_string{this}, g.the_one_and_only) << ": won\n";
         return str;
     }
-    std::string draw(const model::game &g) const
+    std::string draw(const model::game& g) const
     {
         std::stringstream str;
-        visit([this, &str](const auto &a) { draw(str, a); }, g.state);
+        visit([this, &str](const auto& a) { draw(str, a); }, g.state);
         return str.str();
     }
 };
@@ -101,7 +101,7 @@ inline std::optional<xzr::tennis::action::score_action> intent(char c)
         return xzr::tennis::action::player_2_scored{};
     return std::nullopt;
 }
-inline void add_options(boost::program_options::options_description &desc)
+inline void add_options(boost::program_options::options_description& desc)
 {
     desc.add_options()(std::string{player_1_scored}.c_str(), "player 1 scored")(std::string{player_2_scored}.c_str(),
                                                                                 "player 2 scored");
