@@ -149,22 +149,25 @@ int main()
         lager::with_sdl_event_loop{loop});
 
     loop.run([&](const SDL_Event &ev) {
-        ImGui_ImplSDL2_ProcessEvent(&ev);
+            ImGui_ImplSDL2_ProcessEvent(&ev);
 
-        gui_context.new_frame();
+            gui_context.new_frame();
 
-        if (auto act = intent(ev)) store.dispatch(*act);
-        draw(store.get());
+            if (auto act = intent(ev)) store.dispatch(*act);
+            draw(store.get());
 
-        // ImGui::ShowDemoWindow();
+            ImGui::ShowDemoWindow();
 
-        gui_context.render();
+            gui_context.render();
 
-        return (ev.type != SDL_QUIT);
+            return (ev.type != SDL_QUIT);
         },
         [](const auto&) {
             return true;
-        });
+        },
+        60,
+        15
+    );
 
     return 0;
 }
