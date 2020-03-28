@@ -109,11 +109,29 @@ struct imgui_context
     SDL_Window* win{nullptr};
 };
 
-void draw(xzr::counter::model::model m)
+std::optional<xzr::counter::action::action> draw(xzr::counter::model::model m)
 {
-    ImGui::Begin("Hello, world!");
-    ImGui::Text("model = %d", m.value);
+    std::optional<xzr::counter::action::action> act{};
+    ImGui::Begin("Counter");
+
+    ImGui::AlignTextToFramePadding();
+    ImGui::Text("Hold to repeat:");
+    ImGui::SameLine();
+
+    float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
+    ImGui::PushButtonRepeat(true);
+    if (ImGui::ArrowButton("##down", ImGuiDir_Down))
+        act = xzr::counter::action::decrement{};
+    ImGui::SameLine(0.0f, spacing);
+    if (ImGui::ArrowButton("##up", ImGuiDir_Up))
+        act = xzr::counter::action::increment{};
+    ImGui::PopButtonRepeat();
+    ImGui::SameLine();
+    ImGui::Text("%d", m.value);
+
     ImGui::End();
+
+    return act;
 }
 
 std::optional<xzr::counter::action::action> intent(const SDL_Event& event)
@@ -150,22 +168,15 @@ int main()
     loop.run(
         [&](const SDL_Event& ev) {
             ImGui_ImplSDL2_ProcessEvent(&ev);
-
-            gui_context.new_frame();
-
-            if (auto act = intent(ev))
-                store.dispatch(*act);
-            draw(store.get());
-
-            ImGui::ShowDemoWindow();
-
-            gui_context.render();
-
             return (ev.type != SDL_QUIT);
         },
-        [](const auto&) { return true; },
-        60,
-        15);
+        [&](auto&&) {
+            gui_context.new_frame();
+            draw(store.get());
+            ImGui::ShowDemoWindow();
+            gui_context.render();
+            return true;
+        });
 
     return 0;
 }
