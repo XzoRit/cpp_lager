@@ -109,9 +109,8 @@ struct imgui_context
     SDL_Window* win{nullptr};
 };
 
-std::optional<xzr::counter::action::action> draw(xzr::counter::model::model m)
+void draw(lager::context<xzr::counter::action::action> ctx, xzr::counter::model::model m)
 {
-    std::optional<xzr::counter::action::action> act{};
     ImGui::Begin("Counter");
 
     ImGui::AlignTextToFramePadding();
@@ -119,19 +118,19 @@ std::optional<xzr::counter::action::action> draw(xzr::counter::model::model m)
     ImGui::SameLine();
 
     float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
+    ImGui::Text("%d", m.value);
     ImGui::PushButtonRepeat(true);
     if (ImGui::ArrowButton("##down", ImGuiDir_Down))
-        act = xzr::counter::action::decrement{};
+        ctx.dispatch(xzr::counter::action::decrement{});
     ImGui::SameLine(0.0f, spacing);
     if (ImGui::ArrowButton("##up", ImGuiDir_Up))
-        act = xzr::counter::action::increment{};
+        ctx.dispatch(xzr::counter::action::increment{});
     ImGui::PopButtonRepeat();
     ImGui::SameLine();
-    ImGui::Text("%d", m.value);
+    if (ImGui::Button("reset"))
+        ctx.dispatch(xzr::counter::action::reset{});
 
     ImGui::End();
-
-    return act;
 }
 
 std::optional<xzr::counter::action::action> intent(const SDL_Event& event)
@@ -172,8 +171,10 @@ int main()
         },
         [&](auto&&) {
             gui_context.new_frame();
-            draw(store.get());
-            ImGui::ShowDemoWindow();
+            {
+                draw(store, store.get());
+                ImGui::ShowDemoWindow();
+            }
             gui_context.render();
             return true;
         });
