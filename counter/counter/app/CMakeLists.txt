@@ -65,6 +65,7 @@ target_link_libraries(
   counter_imgui_app_exe
   PRIVATE
     counter::model
+    counter::imgui_view
     imgui
     lager
     OpenGL::GL

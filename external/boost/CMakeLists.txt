@@ -1,7 +1,6 @@
-set(
-  BOOST_VERSION
-  1.70.0
-)
+if(NOT EXISTS "$ENV{BOOST_ROOT}")
+  message(FATAL_ERROR "Could not find BOOST_ROOT environment variable")
+endif()
 
 set(
   BOOST_ROOT
@@ -9,8 +8,13 @@ set(
 )
 
 set(
+  BOOST_VERSION
+  1.72.0
+)
+
+set(
   BOOST_LIBRARYDIR
-  "${bBOOST_ROOT}/stage/lib"
+  "${BOOST_ROOT}/stage/lib"
 )
 
 set(
@@ -21,7 +25,6 @@ set(
 find_package(
   Boost
   ${BOOST_VERSION}
-  EXACT
   REQUIRED
   COMPONENTS
     program_options

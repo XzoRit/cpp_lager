@@ -33,7 +33,6 @@ boost.use-project
 lib counter_model
     : $(sources)
     : <include>$(inc_dir)
-      <library>/external//lager
     ;
 
 import testing

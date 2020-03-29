@@ -70,7 +70,9 @@ target_include_directories(
 target_link_libraries(
   counter_imgui_view
   PUBLIC
+    counter::model
     imgui
+    lager
 )
 
 add_library(

@@ -1,3 +1,9 @@
+import boost
+    ;
+
+boost.use-project
+    ;
+
 constant inc_dir
     : .
     ;
@@ -6,18 +12,8 @@ constant src_dir
     : $(inc_dir)/counter/view
     ;
 
-constant console_view_sources
-    : $(src_dir)/console.cpp
-    ;
-
-import boost
-    ;
-
-boost.use-project
-    ;
-
 lib console_view
-    : $(console_view_sources)
+    : $(src_dir)/console.cpp
       /counter/model//counter_model
       /boost//program_options
     : <include>$(inc_dir)
@@ -29,8 +25,13 @@ lib console_view
 
 lib imgui_view
     : $(src_dir)/imgui.cpp
+      /counter/model//counter_model
+      /external//imgui
+      /external//lager
     : <include>$(inc_dir)
-      <library>/external//imgui
     :
     : <include>$(inc_dir)
+      <library>/counter/model//counter_model
+      <library>/external//imgui
+      <library>/external//lager
     ;

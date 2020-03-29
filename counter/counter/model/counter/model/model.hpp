@@ -41,7 +41,7 @@ struct on_action
     }
     model m{};
 };
-model update(model m, const action::action& act)
+inline model update(model m, const action::action& act)
 {
     return std::visit(on_action{m}, act);
 };

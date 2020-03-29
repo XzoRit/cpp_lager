@@ -1,5 +1,7 @@
 #include <counter/model/model.hpp>
 
+#include <counter/view/imgui.hpp>
+
 #include <lager/event_loop/sdl.hpp>
 #include <lager/store.hpp>
 
@@ -21,7 +23,7 @@ struct sdl
 {
     sdl()
     {
-        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0)
+        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
             throw std::runtime_error{std::string{"SDL_Init failed "} + SDL_GetError()};
     }
 
@@ -108,49 +110,6 @@ struct imgui_context
 
     SDL_Window* win{nullptr};
 };
-
-void draw(lager::context<xzr::counter::action::action> ctx, xzr::counter::model::model m)
-{
-    ImGui::Begin("Counter");
-
-    ImGui::AlignTextToFramePadding();
-    ImGui::Text("Hold to repeat:");
-    ImGui::SameLine();
-
-    float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
-    ImGui::Text("%d", m.value);
-    ImGui::PushButtonRepeat(true);
-    if (ImGui::ArrowButton("##down", ImGuiDir_Down))
-        ctx.dispatch(xzr::counter::action::decrement{});
-    ImGui::SameLine(0.0f, spacing);
-    if (ImGui::ArrowButton("##up", ImGuiDir_Up))
-        ctx.dispatch(xzr::counter::action::increment{});
-    ImGui::PopButtonRepeat();
-    ImGui::SameLine();
-    if (ImGui::Button("reset"))
-        ctx.dispatch(xzr::counter::action::reset{});
-
-    ImGui::End();
-}
-
-std::optional<xzr::counter::action::action> intent(const SDL_Event& event)
-{
-    if (event.type == SDL_KEYDOWN)
-    {
-        switch (event.key.keysym.sym)
-        {
-        case SDLK_UP:
-            return xzr::counter::action::increment{};
-        case SDLK_DOWN:
-            return xzr::counter::action::decrement{};
-        case SDLK_SPACE:
-            return xzr::counter::action::reset{0};
-        default:
-            return std::nullopt;
-        }
-    }
-    return std::nullopt;
-}
 } // namespace
 int main()
 {
@@ -172,7 +131,7 @@ int main()
         [&](auto&&) {
             gui_context.new_frame();
             {
-                draw(store, store.get());
+                xzr::counter::view::imgui::draw(store, store.get());
                 ImGui::ShowDemoWindow();
             }
             gui_context.render();
