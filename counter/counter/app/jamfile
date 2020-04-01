@@ -31,3 +31,6 @@ exe counter_imgui_app_exe
 unit-test counter_imgui_app_run
     : counter_imgui_app_exe
     ;
+
+always counter_imgui_app_run
+    ;
