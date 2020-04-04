@@ -17,11 +17,11 @@ set(
 )
 
 add_subdirectory(
-  counter
+  external
 )
 
 add_subdirectory(
-  external
+  counter
 )
 
 add_subdirectory(
