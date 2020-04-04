@@ -1,0 +1,41 @@
+build-project counter/app/console
+    ;
+
+use-project /counter/app_console
+    : counter/app/console
+    ;
+
+build-project counter/app/imgui
+    ;
+
+use-project /counter/app_imgui
+    : counter/app/imgui
+    ;
+
+build-project counter/model
+    ;
+
+use-project /counter/model
+    : counter/model
+    ;
+
+build-project counter/view/model
+    ;
+
+use-project /counter/view_model
+    : counter/view/model
+    ;
+
+build-project counter/view/gui/console
+    ;
+
+use-project /counter/gui_console
+    : counter/view/gui/console
+    ;
+
+build-project counter/view/gui/imgui
+    ;
+
+use-project /counter/gui_imgui
+    : counter/view/gui/imgui
+    ;

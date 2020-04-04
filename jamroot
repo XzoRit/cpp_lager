@@ -2,46 +2,11 @@ project app_project
     : build-dir build_boost
     ;
 
-build-project counter/counter/app/console
+build-project counter
     ;
 
-use-project /counter/app_console
-    : counter/counter/app/console
-    ;
-
-build-project counter/counter/app/imgui
-    ;
-
-use-project /counter/app_imgui
-    : counter/counter/app/imgui
-    ;
-
-build-project counter/counter/model
-    ;
-
-use-project /counter/model
-    : counter/counter/model
-    ;
-
-build-project counter/counter/view/model
-    ;
-
-use-project /counter/view_model
-    : counter/counter/view/model
-    ;
-
-build-project counter/counter/view/gui/console
-    ;
-
-use-project /counter/gui_console
-    : counter/counter/view/gui/console
-    ;
-
-build-project counter/counter/view/gui/imgui
-    ;
-
-use-project /counter/gui_imgui
-    : counter/counter/view/gui/imgui
+use-project /counter
+    : counter
     ;
 
 build-project tennis/tennis/app
