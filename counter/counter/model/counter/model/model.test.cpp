@@ -24,6 +24,9 @@ BOOST_AUTO_TEST_CASE(update_model)
 
     const auto d_model{update(c_model, reset{5})};
     BOOST_TEST(d_model.value == 5);
+
+    const auto e_model{update(d_model, reset{})};
+    BOOST_TEST(e_model.value == 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

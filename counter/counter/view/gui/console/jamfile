@@ -1,0 +1,22 @@
+import boost
+    ;
+
+boost.use-project
+    ;
+
+constant inc_dir
+    : .
+    ;
+
+constant src_dir
+    : $(inc_dir)/counter/view/gui/console
+    ;
+
+lib lib
+    : $(src_dir)/console.cpp
+    : <include>$(inc_dir)
+      <library>/counter/view_model//lib
+      <library>/boost//program_options
+    :
+    : <include>$(inc_dir)
+    ;

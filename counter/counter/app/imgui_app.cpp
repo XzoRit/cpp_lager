@@ -1,6 +1,6 @@
-#include <counter/model/model.hpp>
+#include <counter/view/model/model.hpp>
 
-#include <counter/view/imgui.hpp>
+#include <counter/view/gui/imgui.hpp>
 
 #include <lager/event_loop/sdl.hpp>
 #include <lager/store.hpp>
@@ -42,11 +42,11 @@ struct sdl_window
         SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-        SDL_WindowFlags window_flags =
-            (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+        SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
+                                                         SDL_WINDOW_MAXIMIZED | SDL_WINDOW_ALLOW_HIGHDPI);
         handle = SDL_CreateWindow("counter imgui app",
-                                  SDL_WINDOWPOS_CENTERED,
-                                  SDL_WINDOWPOS_CENTERED,
+                                  SDL_WINDOWPOS_UNDEFINED,
+                                  SDL_WINDOWPOS_UNDEFINED,
                                   1280,
                                   720,
                                   window_flags);
@@ -99,7 +99,6 @@ struct imgui_context
     void render()
     {
         ImGui::Render();
-        SDL_GL_MakeCurrent(win, gl_ctx);
         const auto size{ImGui::GetIO().DisplaySize};
         glViewport(0, 0, (int)size.x, (int)size.y);
 
@@ -124,8 +123,8 @@ int main()
         imgui_context gui_context{window.handle, gl_context.gl_context};
 
         auto loop = lager::sdl_event_loop{};
-        auto store = lager::make_store<xzr::counter::action::action>(xzr::counter::model::model{},
-                                                                     xzr::counter::model::update,
+        auto store = lager::make_store<xzr::counter::action::action>(xzr::counter::view::model::model{},
+                                                                     xzr::counter::view::model::update,
                                                                      lager::with_sdl_event_loop{loop});
 
         loop.run(

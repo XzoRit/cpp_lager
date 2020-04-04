@@ -1,0 +1,15 @@
+constant inc_dir
+    : .
+    ;
+
+constant src_dir
+    : $(inc_dir)/counter/view/gui/imgui
+    ;
+
+lib lib
+    : $(src_dir)/imgui.cpp
+    : <include>$(inc_dir)
+      <library>/counter/view_model//lib
+      <library>/external//lager
+      <library>/external//imgui
+    ;

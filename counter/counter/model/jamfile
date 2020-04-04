@@ -12,10 +12,6 @@ constant src_dir
     : $(inc_dir)/counter/model
     ;
 
-project counter_model
-    : usage-requirements <include>$(inc_dir)
-    ;
-
 constant test_sources
     : [ glob $(src_dir)/*.test.cpp ]
     ;
@@ -30,8 +26,10 @@ import boost
 boost.use-project
     ;
 
-lib counter_model
+lib lib
     : $(sources)
+    : <include>$(inc_dir)
+    :
     : <include>$(inc_dir)
     ;
 
@@ -41,7 +39,7 @@ import testing
 run $(test_sources)
     : --color_output=false
     :
-    : <library>counter_model
+    : <library>lib
       <library>/boost//unit_test_framework
     : test
     ;

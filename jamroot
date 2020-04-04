@@ -2,11 +2,11 @@ project app_project
     : build-dir build_boost
     ;
 
-build-project counter/counter/app
+build-project counter/counter/app/console
     ;
 
-use-project /counter_app
-    : counter/counter/app
+use-project /counter/app_console
+    : counter/counter/app/console
     ;
 
 build-project counter/counter/model
@@ -16,11 +16,25 @@ use-project /counter/model
     : counter/counter/model
     ;
 
-build-project counter/counter/view
+build-project counter/counter/view/model
     ;
 
-use-project /counter/view
-    : counter/counter/view
+use-project /counter/view_model
+    : counter/counter/view/model
+    ;
+
+build-project counter/counter/view/gui/console
+    ;
+
+use-project /counter/gui_console
+    : counter/counter/view/gui/console
+    ;
+
+build-project counter/counter/view/gui/imgui
+    ;
+
+use-project /counter/gui_imgui
+    : counter/counter/view/gui/imgui
     ;
 
 build-project tennis/tennis/app

@@ -1,0 +1,39 @@
+import testing
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
+exe exe
+    : main.cpp
+    : <library>/boost//program_options
+      <library>/counter/view_model//lib
+      <library>/counter/gui_console//lib
+      <library>/external//lager
+    ;
+
+unit-test run
+    : exe
+    : <testing.arg>"--help"
+    ;
+
+always run
+    ;
+
+# exe counter_imgui_app_exe
+#     : imgui_app.cpp
+#     : <library>/counter/gui_imgui//lib
+#       <library>/external//imgui
+#       <library>/external//lager
+#       <library>/site-config//sdl2
+#     ;
+# 
+# unit-test counter_imgui_app_run
+#     : counter_imgui_app_exe
+#     ;
+# 
+# always counter_imgui_app_run
+#     ;

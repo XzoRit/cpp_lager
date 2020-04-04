@@ -11,7 +11,7 @@ exe counter_console_app_exe
     : console_app.cpp
     : <library>/boost//program_options
       <library>/counter/model//counter_model
-      <library>/counter/view//console_view
+      <library>/counter/gui_console//lib
     ;
 
 unit-test counter_console_app_run
@@ -19,13 +19,15 @@ unit-test counter_console_app_run
     : <testing.arg>"--help"
     ;
 
+always counter_console_app_run
+    ;
+
 exe counter_imgui_app_exe
     : imgui_app.cpp
-      /external//imgui
-      /external//lager
-      /site-config//sdl2
-    : <library>/counter/model//counter_model
-      <library>/counter/view//imgui_view
+    : <library>/counter/gui_imgui//lib
+      <library>/external//imgui
+      <library>/external//lager
+      <library>/site-config//sdl2
     ;
 
 unit-test counter_imgui_app_run
