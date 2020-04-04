@@ -9,6 +9,13 @@ use-project /counter/app_console
     : counter/counter/app/console
     ;
 
+build-project counter/counter/app/imgui
+    ;
+
+use-project /counter/app_imgui
+    : counter/counter/app/imgui
+    ;
+
 build-project counter/counter/model
     ;
 

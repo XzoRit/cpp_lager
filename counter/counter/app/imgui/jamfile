@@ -1,0 +1,14 @@
+exe exe
+    : main.cpp
+    : <library>/counter/gui_imgui//lib
+      <library>/external//imgui
+      <library>/external//lager
+      <library>/site-config//sdl2
+    ;
+
+unit-test run
+    : exe
+    ;
+
+always run
+    ;

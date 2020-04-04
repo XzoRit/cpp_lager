@@ -22,3 +22,18 @@ unit-test run
 
 always run
     ;
+
+# exe counter_imgui_app_exe
+#     : imgui_app.cpp
+#     : <library>/counter/gui_imgui//lib
+#       <library>/external//imgui
+#       <library>/external//lager
+#       <library>/site-config//sdl2
+#     ;
+# 
+# unit-test counter_imgui_app_run
+#     : counter_imgui_app_exe
+#     ;
+# 
+# always counter_imgui_app_run
+#     ;

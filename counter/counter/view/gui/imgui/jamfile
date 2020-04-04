@@ -12,4 +12,6 @@ lib lib
       <library>/counter/view_model//lib
       <library>/external//lager
       <library>/external//imgui
+    :
+    : <include>$(inc_dir)
     ;
