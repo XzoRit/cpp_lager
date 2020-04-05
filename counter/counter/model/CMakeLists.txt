@@ -15,14 +15,14 @@ add_library(
 target_sources(
   counter_model
   PRIVATE
-  "${src_dir}/model.cpp"
-  "${src_dir}/model.hpp"
+    "${src_dir}/model.cpp"
+    "${src_dir}/model.hpp"
 )
 
 target_compile_features(
   counter_model
   PUBLIC
-  cxx_std_17
+    cxx_std_17
 )
 
 target_include_directories(
@@ -34,7 +34,7 @@ target_include_directories(
 add_library(
   counter::model
   ALIAS
-  counter_model
+    counter_model
 )
 
 add_executable(
@@ -44,8 +44,8 @@ add_executable(
 target_sources(
   counter_model_test
   PRIVATE
-  "${src_dir}/model.test.cpp"
-  "${src_dir}/main.test.cpp"
+    "${src_dir}/model.test.cpp"
+    "${src_dir}/main.test.cpp"
 )
 
 target_link_libraries(

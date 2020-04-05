@@ -27,9 +27,9 @@ constant imgui_sources
 
 lib imgui
     : $(imgui_sources)
-      /site-config//sdl2
-      /site-config//gl
-    :
+    : <include>./imgui
+      <library>/site-config//sdl2
+      <library>/site-config//gl
     :
     : <include>./imgui
       <library>/site-config//sdl2

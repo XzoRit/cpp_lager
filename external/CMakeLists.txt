@@ -44,6 +44,7 @@ target_link_libraries(
 find_package(
   OpenGL
   REQUIRED
+    OpenGL
 )
 
 find_package(

@@ -1,6 +1,7 @@
 exe exe
     : main.cpp
-    : <library>/counter/gui_imgui//lib
+    : <library>/counter/view_model//lib
+      <library>/counter/gui_imgui//lib
       <library>/external//imgui
       <library>/external//lager
       <library>/site-config//sdl2

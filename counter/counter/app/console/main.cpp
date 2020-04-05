@@ -1,5 +1,5 @@
-#include <counter/view/model/model.hpp>
 #include <counter/view/gui/console/console.hpp>
+#include <counter/view/model/model.hpp>
 
 #include <lager/event_loop/manual.hpp>
 #include <lager/event_loop/queue.hpp>
@@ -16,7 +16,7 @@ namespace po = boost::program_options;
 
 namespace
 {
-  void render(const xzr::counter::view::model::model& /*prev*/, const xzr::counter::view::model::model& current)
+void render(const xzr::counter::view::model::model& /*prev*/, const xzr::counter::view::model::model& current)
 {
     xzr::counter::view::console::render(current);
 }
@@ -53,9 +53,7 @@ int main(int ac, char* av[])
             if (c == 'q')
                 break;
             if (const auto act = xzr::counter::view::console::menu::intent(c))
-            {
                 store.dispatch(*act);
-            }
             evt_q.step();
         }
     }

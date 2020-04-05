@@ -19,4 +19,5 @@ lib lib
       <library>/boost//program_options
     :
     : <include>$(inc_dir)
+      <library>/counter/model//lib
     ;

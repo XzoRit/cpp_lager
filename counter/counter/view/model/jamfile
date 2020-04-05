@@ -6,12 +6,12 @@ constant src_dir
     : $(inc_dir)/counter/view/model
     ;
 
-
 lib lib
     : $(src_dir)/model.cpp
     : <include>$(inc_dir)
       <library>/counter/model//lib
     :
     : <include>$(inc_dir)
+      <library>/counter/model//lib
     :
     ;

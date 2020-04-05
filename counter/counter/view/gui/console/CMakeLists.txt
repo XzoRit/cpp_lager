@@ -33,6 +33,8 @@ target_include_directories(
 
 target_link_libraries(
   counter_gui_console
+  PUBLIC
+    counter::model
   PRIVATE
     counter::view::model
     Boost::program_options
@@ -41,5 +43,5 @@ target_link_libraries(
 add_library(
   counter::gui::console
   ALIAS
-  counter_gui_console
+    counter_gui_console
 )

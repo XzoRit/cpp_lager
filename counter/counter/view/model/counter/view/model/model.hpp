@@ -12,18 +12,8 @@ enum class colour
 };
 struct model
 {
-    counter::model::model counter;
-    colour which_colour;
+    counter::model::model counter{};
+    colour which_colour{colour::grey};
 };
-inline model update(model m, const action::action& act)
-{
-    m.counter = counter::model::update(m.counter, act);
-    if (m.counter.value > 0)
-        m.which_colour = colour::green;
-    else if (m.counter.value < 0)
-        m.which_colour = colour::red;
-    else
-        m.which_colour = colour::grey;
-    return m;
-};
+model update(model m, const action::action& act);
 } // namespace xzr::counter::view::model

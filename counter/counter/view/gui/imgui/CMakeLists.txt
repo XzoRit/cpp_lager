@@ -36,6 +36,7 @@ target_link_libraries(
   PUBLIC
    counter::view::model
    lager
+  PRIVATE
    imgui
 )
 
