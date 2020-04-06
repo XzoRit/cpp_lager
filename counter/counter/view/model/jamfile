@@ -1,3 +1,12 @@
+import testing
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
 constant inc_dir
     : .
     ;
@@ -6,12 +15,29 @@ constant src_dir
     : $(inc_dir)/counter/view/model
     ;
 
+constant test_sources
+    : [ glob $(src_dir)/*.test.cpp ]
+    ;
+
+constant sources
+    : [ glob $(src_dir)/*.cpp : $(test_sources) ]
+    ;
+
 lib lib
-    : $(src_dir)/model.cpp
+    : $(sources)
     : <include>$(inc_dir)
       <library>/counter/model//lib
     :
     : <include>$(inc_dir)
       <library>/counter/model//lib
     :
+    ;
+
+run $(test_sources)
+    : --color_output=false
+    :
+    : <library>lib
+      <library>/counter/model//lib
+      <library>/boost//unit_test_framework
+    : test
     ;

@@ -42,3 +42,30 @@ add_library(
   ALIAS
     counter_view_model
 )
+
+add_executable(
+  counter_view_model_test
+)
+
+target_sources(
+  counter_view_model_test
+  PRIVATE
+    "${src_dir}/model.test.cpp"
+    "${src_dir}/main.test.cpp"
+)
+
+target_link_libraries(
+  counter_view_model_test
+  PRIVATE
+    counter::model
+    counter::view::model
+    Boost::unit_test_framework
+)
+
+add_test(
+  NAME
+    counter::view::model_test
+  COMMAND
+    counter_view_model_test
+    "--color_output=false"
+)

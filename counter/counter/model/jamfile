@@ -1,3 +1,6 @@
+import testing
+    ;
+
 import boost
     ;
 
@@ -20,12 +23,6 @@ constant sources
     : [ glob $(src_dir)/*.cpp : $(test_sources) ]
     ;
 
-import boost
-    ;
-
-boost.use-project
-    ;
-
 lib lib
     : $(sources)
     : <include>$(inc_dir)
@@ -33,13 +30,11 @@ lib lib
     : <include>$(inc_dir)
     ;
 
-import testing
-    ;
-
 run $(test_sources)
+      lib
+      /boost//unit_test_framework
     : --color_output=false
     :
-    : <library>lib
-      <library>/boost//unit_test_framework
+    :
     : test
     ;

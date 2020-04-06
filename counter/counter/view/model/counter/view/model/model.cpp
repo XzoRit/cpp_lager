@@ -1,7 +1,28 @@
 #include <counter/view/model/model.hpp>
 
+#include <ostream>
+
 namespace xzr::counter::view::model
 {
+std::ostream& operator<<(std::ostream& str, colour c)
+{
+    switch (c)
+    {
+    case colour::red:
+        str << "red";
+        break;
+    case colour::green:
+        str << "green";
+        break;
+    case colour::grey:
+        str << "grey";
+        break;
+    default:
+        str << "unknown";
+        break;
+    }
+    return str;
+}
 model update(model m, const action::action& act)
 {
     m.counter = counter::model::update(m.counter, act);
