@@ -12,12 +12,16 @@ constant src_dir
     : $(inc_dir)/counter/view/gui/console
     ;
 
-lib lib
-    : $(src_dir)/console.cpp
-    : <include>$(inc_dir)
+project
+    : usage-requirements
+      <include>$(inc_dir)
+      <library>/counter/view_model//lib
+    : requirements
+      <include>$(inc_dir)
       <library>/counter/view_model//lib
       <library>/boost//program_options
-    :
-    : <include>$(inc_dir)
-      <library>/counter/model//lib
+    ;
+
+lib lib
+    : $(src_dir)/console.cpp
     ;

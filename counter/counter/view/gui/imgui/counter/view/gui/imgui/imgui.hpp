@@ -6,7 +6,7 @@
 
 namespace xzr::counter::view::model
 {
-class model;
+struct model;
 }
 namespace xzr::counter::view::imgui
 {

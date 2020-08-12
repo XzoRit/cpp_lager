@@ -23,16 +23,21 @@ constant sources
     : [ glob $(src_dir)/*.cpp : $(test_sources) ]
     ;
 
+project
+    : usage-requirements
+      <include>$(inc_dir)
+    : requirements
+      <include>$(inc_dir)
+      <use>/boost//headers
+    ;
+
 lib lib
     : $(sources)
-    : <include>$(inc_dir)
-    :
-    : <include>$(inc_dir)
     ;
 
 run $(test_sources)
-      lib
-      /boost//unit_test_framework
+    lib
+    /boost//unit_test_framework
     : --color_output=false
     :
     :

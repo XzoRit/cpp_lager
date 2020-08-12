@@ -1,6 +1,5 @@
 #include <boost/test/unit_test.hpp>
 
-#include <counter/model/model.hpp>
 #include <counter/view/model/model.hpp>
 
 namespace
@@ -9,7 +8,7 @@ BOOST_AUTO_TEST_SUITE(counter_view_model)
 
 BOOST_AUTO_TEST_CASE(update_view_model)
 {
-    const auto a_model{xzr::counter::view::model::model{0}};
+    const auto a_model{xzr::counter::view::model::model{{0}}};
     BOOST_CHECK_EQUAL(a_model.which_colour, xzr::counter::view::model::colour::grey);
 
     const auto b_model{xzr::counter::view::model::update(a_model, xzr::counter::action::increment{})};

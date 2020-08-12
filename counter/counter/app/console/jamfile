@@ -7,12 +7,16 @@ import boost
 boost.use-project
     ;
 
-exe exe
-    : main.cpp
-    : <library>/counter/view_model//lib
+project
+    : requirements
+      <library>/counter/view_model//lib
       <library>/counter/gui_console//lib
       <library>/boost//program_options
       <library>/external//lager
+    ;
+
+exe exe
+    : main.cpp
     ;
 
 unit-test run
