@@ -123,9 +123,9 @@ int main()
         imgui_context gui_context{window.handle, gl_context.gl_context};
 
         auto loop = lager::sdl_event_loop{};
-        auto store = lager::make_store<xzr::counter::action::action>(xzr::counter::view::model::model{},
-                                                                     xzr::counter::view::model::update,
-                                                                     lager::with_sdl_event_loop{loop});
+        auto store = lager::make_store<xzr::counter::view::model::action::action>(xzr::counter::view::model::model{},
+                                                                                  xzr::counter::view::model::update,
+                                                                                  lager::with_sdl_event_loop{loop});
 
         loop.run(
             [&](const SDL_Event& ev) {

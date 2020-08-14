@@ -4,11 +4,11 @@
 
 namespace
 {
-using xzr::counter::action::decrement;
-using xzr::counter::action::increment;
-using xzr::counter::action::reset;
 using xzr::counter::model::model;
 using xzr::counter::model::update;
+using xzr::counter::model::action::decrement;
+using xzr::counter::model::action::increment;
+using xzr::counter::model::action::reset;
 
 BOOST_AUTO_TEST_SUITE(counter_model)
 

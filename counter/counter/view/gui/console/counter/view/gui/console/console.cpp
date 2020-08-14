@@ -1,7 +1,5 @@
 #include <counter/view/gui/console/console.hpp>
 
-#include <counter/view/model/model.hpp>
-
 #include <boost/program_options/options_description.hpp>
 
 #include <iostream>
@@ -15,25 +13,25 @@ void render(const xzr::counter::view::model::model& m)
     constexpr const char* green = "\033[32m";
     constexpr const char* grey = "\033[37m";
     if (m.which_colour == xzr::counter::view::model::colour::red)
-        std::cout << '\r' << red << m.counter.value << no_colour << ' ';
+        std::cout << '\r' << red << m.value << no_colour << ' ';
     else if (m.which_colour == xzr::counter::view::model::colour::green)
-        std::cout << '\r' << green << m.counter.value << no_colour << ' ';
+        std::cout << '\r' << green << m.value << no_colour << ' ';
     else if (m.which_colour == xzr::counter::view::model::colour::grey)
-        std::cout << '\r' << grey << m.counter.value << no_colour << ' ';
+        std::cout << '\r' << grey << m.value << no_colour << ' ';
     else
-        std::cout << '\r' << m.counter.value << ' ';
+        std::cout << '\r' << m.value << ' ';
 }
 } // namespace xzr::counter::view::console
 namespace xzr::counter::view::console::menu
 {
-std::optional<xzr::counter::action::action> intent(char c)
+std::optional<xzr::counter::view::model::action::action> intent(char c)
 {
     if (c == '+')
-        return xzr::counter::action::increment{};
+        return xzr::counter::view::model::action::increment{};
     if (c == '-')
-        return xzr::counter::action::decrement{};
+        return xzr::counter::view::model::action::decrement{};
     if (c == '=')
-        return xzr::counter::action::reset{0};
+        return xzr::counter::view::model::action::reset{0};
     return std::nullopt;
 }
 void add_options(boost::program_options::options_description& desc)

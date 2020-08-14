@@ -33,7 +33,7 @@ target_include_directories(
 
 target_link_libraries(
   counter_view_model
-  PUBLIC
+  PRIVATE
     counter::model
 )
 

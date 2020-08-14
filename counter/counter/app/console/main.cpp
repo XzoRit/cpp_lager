@@ -42,9 +42,9 @@ int main(int ac, char* av[])
         }
         std::cout << desc << "\n";
         auto evt_q = lager::queue_event_loop{};
-        auto store = lager::make_store<xzr::counter::action::action>(xzr::counter::view::model::model{},
-                                                                     xzr::counter::view::model::update,
-                                                                     lager::with_manual_event_loop{});
+        auto store = lager::make_store<xzr::counter::view::model::action::action>(xzr::counter::view::model::model{},
+                                                                                  xzr::counter::view::model::update,
+                                                                                  lager::with_manual_event_loop{});
         lager::watch(store, render);
 
         auto c = char{};

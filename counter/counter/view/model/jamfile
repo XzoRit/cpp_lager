@@ -26,7 +26,6 @@ constant sources
 project
     : usage-requirements
       <include>$(inc_dir)
-      <library>/counter/model//lib
     : requirements
       <include>$(inc_dir)
       <library>/counter/model//lib
