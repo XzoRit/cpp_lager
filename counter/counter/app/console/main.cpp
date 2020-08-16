@@ -16,7 +16,7 @@ namespace po = boost::program_options;
 
 namespace
 {
-void render(const xzr::counter::view::model::model& /*prev*/, const xzr::counter::view::model::model& current)
+void render(const xzr::counter::view::model::model& current)
 {
     xzr::counter::view::console::render(current);
 }
@@ -28,7 +28,8 @@ int main(int ac, char* av[])
     try
     {
         po::options_description desc("options for counter console app");
-        desc.add_options()("help", "produce help message")("q", "quits application");
+        desc.add_options()("help", "produce help message")("q",
+                                                           "quits application");
         xzr::counter::view::console::menu::add_options(desc);
 
         po::variables_map vm;
@@ -42,9 +43,11 @@ int main(int ac, char* av[])
         }
         std::cout << desc << "\n";
         auto evt_q = lager::queue_event_loop{};
-        auto store = lager::make_store<xzr::counter::view::model::action::action>(xzr::counter::view::model::model{},
-                                                                                  xzr::counter::view::model::update,
-                                                                                  lager::with_manual_event_loop{});
+        auto store =
+            lager::make_store<xzr::counter::view::model::action::action>(
+                xzr::counter::view::model::model{},
+                xzr::counter::view::model::update,
+                lager::with_manual_event_loop{});
         lager::watch(store, render);
 
         auto c = char{};
