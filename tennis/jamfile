@@ -1,0 +1,27 @@
+build-project tennis/app/console
+    ;
+
+use-project /tennis/app_console
+    : tennis/app/console
+    ;
+
+build-project tennis/app/imgui
+    ;
+
+use-project /tennis/app_imgui
+    : tennis/app/imgui
+    ;
+
+build-project tennis/model
+    ;
+
+use-project /tennis/model
+    : tennis/model
+    ;
+
+build-project tennis/view
+    ;
+
+use-project /tennis/view
+    : tennis/view
+    ;

@@ -9,29 +9,15 @@ use-project /counter
     : counter
     ;
 
-build-project tennis/tennis/app
+build-project tennis
     ;
 
-use-project /tennis_app
-    : tennis/tennis/app
-    ;
-
-build-project tennis/tennis/model
-    ;
-
-use-project /tennis/model
-    : tennis/tennis/model
-    ;
-
-build-project tennis/tennis/view
-    ;
-
-use-project /tennis/view
-    : tennis/tennis/view
+use-project /tennis
+    : tennis
     ;
 
 build-project external
-    ;
+;
 
 use-project /external
     : external

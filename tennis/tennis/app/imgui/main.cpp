@@ -109,15 +109,11 @@ struct imgui_context
     SDL_Window* win{nullptr};
 };
 
-void draw(imgui_context& gui_context, int model)
+void draw(int model)
 {
-    gui_context.new_frame();
-
     ImGui::Begin("Hello, world!");
     ImGui::Text("model = %d", model);
     ImGui::End();
-
-    gui_context.render();
 }
 
 std::optional<int> intent(const SDL_Event& event)
@@ -132,8 +128,6 @@ std::optional<int> intent(const SDL_Event& event)
             return 2;
         case SDLK_SPACE:
             return 0;
-        default:
-            break;
         }
     }
     return std::nullopt;
@@ -161,20 +155,24 @@ int main()
     auto loop = lager::sdl_event_loop{};
     auto store = lager::make_store<int>(int{}, update, lager::with_sdl_event_loop{loop});
 
-    lager::watch(store, [&](int prev_model, int curr_model) { draw(gui_context, curr_model); });
+    loop.run(
+        [&](const SDL_Event& ev) {
+            ImGui_ImplSDL2_ProcessEvent(&ev);
+            if (auto act = intent(ev))
+                store.dispatch(*act);
 
-    draw(gui_context, store.get());
-
-    loop.run([&](const SDL_Event& ev) {
-        ImGui_ImplSDL2_ProcessEvent(&ev);
-
-        if (auto act = intent(ev))
-            store.dispatch(*act);
-
-        draw(gui_context, store.get());
-
-        return (ev.type != SDL_QUIT);
-    });
+            return (ev.type != SDL_QUIT);
+        },
+        [&](auto&&) {
+            gui_context.new_frame();
+            {
+                draw(store.get());
+                xzr::tennis::view::imgui::run();
+                ImGui::ShowDemoWindow();
+            }
+            gui_context.render();
+            return true;
+        });
 
     return 0;
 }

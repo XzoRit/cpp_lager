@@ -34,13 +34,12 @@ int main(int ac, char* av[])
         }
 
         xzr::tennis::view::console::render tennis_render{"Alice", "Bob"};
-        const auto& render = [&tennis_render](const auto& prev, const auto& current) {
+        const auto& render = [&tennis_render](const auto& current) {
             std::cout << tennis_render.draw(current);
         };
 
         auto store = lager::make_store<xzr::tennis::action::score_action>(xzr::tennis::model::game{},
-                                                                          xzr::tennis::model::update,
-                                                                          lager::with_manual_event_loop{});
+                                                                          xzr::tennis::model::update,lager::with_manual_event_loop{});
         lager::watch(store, render);
 
         auto c = char{};
