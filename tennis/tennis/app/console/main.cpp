@@ -1,5 +1,5 @@
 #include <tennis/model/model.hpp>
-#include <tennis/view/console.hpp>
+#include <tennis/view/gui/console/console.hpp>
 
 #include <lager/event_loop/manual.hpp>
 #include <lager/store.hpp>
@@ -39,7 +39,8 @@ int main(int ac, char* av[])
         };
 
         auto store = lager::make_store<xzr::tennis::action::score_action>(xzr::tennis::model::game{},
-                                                                          xzr::tennis::model::update,lager::with_manual_event_loop{});
+                                                                          xzr::tennis::model::update,
+            lager::with_manual_event_loop{});
         lager::watch(store, render);
 
         auto c = char{};

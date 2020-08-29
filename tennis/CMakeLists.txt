@@ -1,5 +1,9 @@
 add_subdirectory(
-  tennis/model
+  tennis/app/console
+)
+
+add_subdirectory(
+  tennis/app/imgui
 )
 
 add_subdirectory(
@@ -7,5 +11,9 @@ add_subdirectory(
 )
 
 add_subdirectory(
-  tennis/app
+  tennis/view/gui/console
+)
+
+add_subdirectory(
+  tennis/model
 )

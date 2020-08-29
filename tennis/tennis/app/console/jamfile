@@ -12,7 +12,7 @@ exe tennis_console_app_exe
       /boost//program_options
       /external//lager
       /tennis/model//tennis_model
-      /tennis/view//console_view
+      /tennis/view/gui/console//console_view
     ;
 
 unit-test tennis_console_app_run

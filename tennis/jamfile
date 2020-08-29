@@ -12,6 +12,13 @@ use-project /tennis/app_imgui
     : tennis/app/imgui
     ;
 
+build-project tennis/view/gui/console
+    ;
+
+use-project tennis/view/gui/console
+    : tennis/view/gui/console
+    ;
+
 build-project tennis/model
     ;
 
