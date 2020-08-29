@@ -1,10 +1,14 @@
 ---
 Language:        Cpp
 BasedOnStyle:    Microsoft
-PointerAlignment: Left
+
 AllowAllArgumentsOnNextLine: false
 AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
+AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: false
 BinPackParameters: false
+BreakConstructorInitializers: BeforeComma
+ColumnLimit: 80
+PointerAlignment: Left
 ...
