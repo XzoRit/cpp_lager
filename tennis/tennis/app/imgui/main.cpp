@@ -1,4 +1,4 @@
-#include <tennis/view/imgui.hpp>
+#include <tennis/view/gui/imgui/imgui.hpp>
 
 #include <lager/event_loop/sdl.hpp>
 #include <lager/store.hpp>
@@ -21,8 +21,10 @@ struct sdl
 {
     sdl()
     {
-        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0)
-            throw std::runtime_error{std::string{"SDL_Init failed "} + SDL_GetError()};
+        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER |
+                     SDL_INIT_GAMECONTROLLER) != 0)
+            throw std::runtime_error{std::string{"SDL_Init failed "} +
+                                     SDL_GetError()};
     }
 
     ~sdl() noexcept
@@ -41,9 +43,14 @@ struct sdl_window
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
         SDL_WindowFlags window_flags =
-            (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-        handle =
-            SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
+            (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE |
+                              SDL_WINDOW_ALLOW_HIGHDPI);
+        handle = SDL_CreateWindow("SDL Window",
+                                  SDL_WINDOWPOS_CENTERED,
+                                  SDL_WINDOWPOS_CENTERED,
+                                  1280,
+                                  720,
+                                  window_flags);
     }
 
     ~sdl_window() noexcept
@@ -56,7 +63,8 @@ struct sdl_window
 
 struct sdl_gl_context
 {
-    explicit sdl_gl_context(SDL_Window* window) : gl_context{SDL_GL_CreateContext(window)}
+    explicit sdl_gl_context(SDL_Window* window)
+        : gl_context{SDL_GL_CreateContext(window)}
     {
         SDL_GL_MakeCurrent(window, gl_context);
         SDL_GL_SetSwapInterval(1);
@@ -72,7 +80,8 @@ struct sdl_gl_context
 
 struct imgui_context
 {
-    imgui_context(SDL_Window* window, SDL_GLContext gl_context) : win{window}
+    imgui_context(SDL_Window* window, SDL_GLContext gl_context)
+        : win{window}
     {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -98,7 +107,10 @@ struct imgui_context
         glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
 
         const ImVec4 back_ground_color{0.5f, 0.5, 0.5, 0.5f};
-        glClearColor(back_ground_color.x, back_ground_color.y, back_ground_color.z, back_ground_color.w);
+        glClearColor(back_ground_color.x,
+                     back_ground_color.y,
+                     back_ground_color.z,
+                     back_ground_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
 
         ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());

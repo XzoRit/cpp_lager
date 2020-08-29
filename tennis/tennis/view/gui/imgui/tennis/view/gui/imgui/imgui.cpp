@@ -1,4 +1,4 @@
-#include <tennis/view/imgui.hpp>
+#include <tennis/view/gui/imgui/imgui.hpp>
 
 #include <imgui.h>
 
@@ -20,18 +20,21 @@ void run()
         const float rounding = 0.0f;
         const ImVec2 p = ImVec2(0, 0);
 
-        draw_list->AddRect(ImVec2(p.x + 10, p.y + 10),
-                           ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight()),
-                           color,
-                           rounding,
-                           corners_none,
-                           thickness);
+        draw_list->AddRect(
+            ImVec2(p.x + 10, p.y + 10),
+            ImVec2(ImGui::GetWindowWidth(), ImGui::GetWindowHeight()),
+            color,
+            rounding,
+            corners_none,
+            thickness);
 
         const float x = p.x + 4.0f;
         static float y = p.y + 4.0f;
         const float width = 25.0f;
         const float height = 100.0f;
-        draw_list->AddRectFilled(ImVec2(x, y), ImVec2(x + width, y + height), color);
+        draw_list->AddRectFilled(ImVec2(x, y),
+                                 ImVec2(x + width, y + height),
+                                 color);
 
         const int key_down{81};
         const int key_up{82};

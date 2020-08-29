@@ -19,16 +19,16 @@ use-project tennis/view/gui/console
     : tennis/view/gui/console
     ;
 
+build-project tennis/view/gui/imgui
+    ;
+
+use-project tennis/view/gui/imgui
+    : tennis/view/gui/imgui
+    ;
+
 build-project tennis/model
     ;
 
 use-project /tennis/model
     : tennis/model
-    ;
-
-build-project tennis/view
-    ;
-
-use-project /tennis/view
-    : tennis/view
     ;

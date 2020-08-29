@@ -1,0 +1,43 @@
+constant inc_dir
+    : .
+    ;
+
+constant src_dir
+    : $(inc_dir)/tennis/view/gui/imgui
+    ;
+
+constant imgui_view_test_sources
+    : $(src_dir)/imgui.test.cpp
+    ;
+
+constant imgui_view_sources
+    : $(src_dir)/imgui.cpp
+    ;
+
+import boost
+    ;
+
+boost.use-project
+    ;
+
+lib imgui_view
+    : $(imgui_view_sources)
+      /tennis/model//tennis_model
+      /boost//program_options
+      /external//imgui
+    : <include>$(inc_dir)
+    :
+    : <include>$(inc_dir)
+    ;
+
+import testing
+    ;
+
+run $(imgui_view_test_sources)
+    $(src_dir)/main.test.cpp
+    : --color_output=false
+    :
+    : <library>imgui_view
+      <use>/boost//headers
+    : imgui_view_test
+    ;

@@ -17,7 +17,7 @@ use-project /tennis
     ;
 
 build-project external
-;
+    ;
 
 use-project /external
     : external

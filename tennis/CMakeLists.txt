@@ -7,11 +7,11 @@ add_subdirectory(
 )
 
 add_subdirectory(
-  tennis/view
+  tennis/view/gui/console
 )
 
 add_subdirectory(
-  tennis/view/gui/console
+  tennis/view/gui/imgui
 )
 
 add_subdirectory(

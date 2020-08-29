@@ -9,7 +9,7 @@ boost.use-project
 
 exe tennis_imgui_app_exe
     : main.cpp
-      /tennis/view//imgui_view
+      /tennis/view/gui/imgui//imgui_view
       /external//imgui
       /external//lager
       /site-config//sdl2
