@@ -57,7 +57,6 @@ target_sources(
 target_link_libraries(
   counter_view_model_test
   PRIVATE
-    counter::model
     counter::view::model
     Boost::unit_test_framework
 )
