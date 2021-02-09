@@ -121,10 +121,20 @@ struct imgui_context
     SDL_Window* win{nullptr};
 };
 
-void draw(int model)
+struct model_t
+{
+    model_t() = default;
+    explicit(false) model_t(int v)
+        : value{v}
+    {
+    }
+    int value{};
+};
+
+void draw(model_t model)
 {
     ImGui::Begin("Hello, world!");
-    ImGui::Text("model = %d", model);
+    ImGui::Text("model = %d", model.value);
     ImGui::End();
 }
 
@@ -145,14 +155,14 @@ std::optional<int> intent(const SDL_Event& event)
     return std::nullopt;
 }
 
-int update(int model, int action)
+model_t update(model_t model, int action)
 {
     if (action == 0)
         return 0;
     if (action == 1)
-        return ++model;
+        return ++model.value;
     if (action == 2)
-        return --model;
+        return --model.value;
 
     return model;
 }
@@ -165,7 +175,8 @@ int main()
     imgui_context gui_context{window.handle, gl_context.gl_context};
 
     auto loop = lager::sdl_event_loop{};
-    auto store = lager::make_store<int>(int{}, update, lager::with_sdl_event_loop{loop});
+    auto store =
+        lager::make_store<int>(model_t{}, lager::with_sdl_event_loop{loop});
 
     loop.run(
         [&](const SDL_Event& ev) {

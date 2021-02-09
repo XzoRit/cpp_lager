@@ -38,8 +38,8 @@ int main(int ac, char* av[])
             std::cout << tennis_render.draw(current);
         };
 
-        auto store = lager::make_store<xzr::tennis::action::score_action>(xzr::tennis::model::game{},
-                                                                          xzr::tennis::model::update,
+        auto store = lager::make_store<xzr::tennis::action::score_action>(
+            xzr::tennis::model::game{},
             lager::with_manual_event_loop{});
         lager::watch(store, render);
 

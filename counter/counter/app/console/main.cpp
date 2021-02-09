@@ -46,7 +46,6 @@ int main(int ac, char* av[])
         auto store =
             lager::make_store<xzr::counter::view::model::action::action>(
                 xzr::counter::view::model::model{},
-                xzr::counter::view::model::update,
                 lager::with_manual_event_loop{});
         lager::watch(store, render);
 
