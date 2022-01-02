@@ -22,7 +22,7 @@ enum class point
     Thirty,
     Forty
 };
-point operator++(point p)
+inline point operator++(point p)
 {
     if (p == point::Love)
         return point::Fifteen;
@@ -147,35 +147,43 @@ inline bool operator!=(const game& a, const game& b)
 } // namespace xzr::tennis::model
 namespace xzr::tennis::model::impl
 {
-bool scorer_gets_forty_points(const game::simple& g, action::player_1_scored)
+inline bool scorer_gets_forty_points(const game::simple& g,
+                                     action::player_1_scored)
 {
     return g.player_1.points == point::Thirty;
 }
-bool scorer_gets_forty_points(const game::simple& g, action::player_2_scored)
+inline bool scorer_gets_forty_points(const game::simple& g,
+                                     action::player_2_scored)
 {
     return g.player_2.points == point::Thirty;
 }
-game::forty create_forty_game(const game::simple& g, action::player_1_scored)
+inline game::forty create_forty_game(const game::simple& g,
+                                     action::player_1_scored)
 {
     return {game::player_id_1{}, g.player_2.points};
 }
-game::forty create_forty_game(const game::simple& g, action::player_2_scored)
+inline game::forty create_forty_game(const game::simple& g,
+                                     action::player_2_scored)
 {
     return {game::player_id_2{}, g.player_1.points};
 }
-game::winner create_winner_game(const game::forty& g, action::player_1_scored)
+inline game::winner create_winner_game(const game::forty& g,
+                                       action::player_1_scored)
 {
     return {game::player_id_1{}};
 }
-game::winner create_winner_game(const game::forty& g, action::player_2_scored)
+inline game::winner create_winner_game(const game::forty& g,
+                                       action::player_2_scored)
 {
     return {game::player_id_2{}};
 }
-game::advantage create_advantage_game(const game::deuce& g, action::player_1_scored)
+inline game::advantage create_advantage_game(const game::deuce& g,
+                                             action::player_1_scored)
 {
     return game::advantage{game::player_id_1{}};
 }
-game::advantage create_advantage_game(const game::deuce& g, action::player_2_scored)
+inline game::advantage create_advantage_game(const game::deuce& g,
+                                             action::player_2_scored)
 {
     return game::advantage{game::player_id_2{}};
 }
@@ -202,19 +210,21 @@ template <> struct create_deuce_or_winner_game<action::player_2_scored>
         return game::winner{p};
     }
 };
-bool has_leading_player_scored(const game::forty& g, action::player_1_scored)
+inline bool has_leading_player_scored(const game::forty& g,
+                                      action::player_1_scored)
 {
     return std::get_if<game::player_id_1>(&g.leading_player);
 }
-bool has_leading_player_scored(const game::forty& g, action::player_2_scored)
+inline bool has_leading_player_scored(const game::forty& g,
+                                      action::player_2_scored)
 {
     return std::get_if<game::player_id_2>(&g.leading_player);
 }
-game::simple inc_score_of(const game::simple& g, action::player_1_scored)
+inline game::simple inc_score_of(const game::simple& g, action::player_1_scored)
 {
     return {{++g.player_1.points}, g.player_2};
 }
-game::simple inc_score_of(const game::simple& g, action::player_2_scored)
+inline game::simple inc_score_of(const game::simple& g, action::player_2_scored)
 {
     return {g.player_1, {++g.player_2.points}};
 }
@@ -259,7 +269,7 @@ struct apply_score_action
 } // namespace xzr::tennis::model::impl
 namespace xzr::tennis::model
 {
-game update(const game& g, const action::score_action& player_scored)
+inline game update(const game& g, const action::score_action& player_scored)
 {
     return std::visit(impl::apply_score_action{g}, player_scored);
 }
